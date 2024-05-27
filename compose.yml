@@ -6,6 +6,6 @@ services:
     environment:
       POSTGRES_PASSWORD: carbonable
       POSTGRES_USER: carbonable
-      POSTGRES_DB: carbonable_launchpad
+      POSTGRES_DB: carbonable_portfolio
     ports:
       - 5432:5432
