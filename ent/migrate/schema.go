@@ -12,6 +12,7 @@ var (
 	CustomerTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "address", Type: field.TypeString},
+		{Name: "project_address", Type: field.TypeString},
 		{Name: "slot", Type: field.TypeInt},
 		{Name: "token_id", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
@@ -25,7 +26,7 @@ var (
 			{
 				Name:    "customertokens_token_id_slot",
 				Unique:  true,
-				Columns: []*schema.Column{CustomerTokensColumns[3], CustomerTokensColumns[2]},
+				Columns: []*schema.Column{CustomerTokensColumns[4], CustomerTokensColumns[3]},
 			},
 		},
 	}

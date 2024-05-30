@@ -42,6 +42,20 @@ func (ctu *CustomerTokensUpdate) SetNillableAddress(s *string) *CustomerTokensUp
 	return ctu
 }
 
+// SetProjectAddress sets the "project_address" field.
+func (ctu *CustomerTokensUpdate) SetProjectAddress(s string) *CustomerTokensUpdate {
+	ctu.mutation.SetProjectAddress(s)
+	return ctu
+}
+
+// SetNillableProjectAddress sets the "project_address" field if the given value is not nil.
+func (ctu *CustomerTokensUpdate) SetNillableProjectAddress(s *string) *CustomerTokensUpdate {
+	if s != nil {
+		ctu.SetProjectAddress(*s)
+	}
+	return ctu
+}
+
 // SetSlot sets the "slot" field.
 func (ctu *CustomerTokensUpdate) SetSlot(i int) *CustomerTokensUpdate {
 	ctu.mutation.ResetSlot()
@@ -171,6 +185,9 @@ func (ctu *CustomerTokensUpdate) sqlSave(ctx context.Context) (n int, err error)
 	if value, ok := ctu.mutation.Address(); ok {
 		_spec.SetField(customertokens.FieldAddress, field.TypeString, value)
 	}
+	if value, ok := ctu.mutation.ProjectAddress(); ok {
+		_spec.SetField(customertokens.FieldProjectAddress, field.TypeString, value)
+	}
 	if value, ok := ctu.mutation.Slot(); ok {
 		_spec.SetField(customertokens.FieldSlot, field.TypeInt, value)
 	}
@@ -258,6 +275,20 @@ func (ctuo *CustomerTokensUpdateOne) SetAddress(s string) *CustomerTokensUpdateO
 func (ctuo *CustomerTokensUpdateOne) SetNillableAddress(s *string) *CustomerTokensUpdateOne {
 	if s != nil {
 		ctuo.SetAddress(*s)
+	}
+	return ctuo
+}
+
+// SetProjectAddress sets the "project_address" field.
+func (ctuo *CustomerTokensUpdateOne) SetProjectAddress(s string) *CustomerTokensUpdateOne {
+	ctuo.mutation.SetProjectAddress(s)
+	return ctuo
+}
+
+// SetNillableProjectAddress sets the "project_address" field if the given value is not nil.
+func (ctuo *CustomerTokensUpdateOne) SetNillableProjectAddress(s *string) *CustomerTokensUpdateOne {
+	if s != nil {
+		ctuo.SetProjectAddress(*s)
 	}
 	return ctuo
 }
@@ -420,6 +451,9 @@ func (ctuo *CustomerTokensUpdateOne) sqlSave(ctx context.Context) (_node *Custom
 	}
 	if value, ok := ctuo.mutation.Address(); ok {
 		_spec.SetField(customertokens.FieldAddress, field.TypeString, value)
+	}
+	if value, ok := ctuo.mutation.ProjectAddress(); ok {
+		_spec.SetField(customertokens.FieldProjectAddress, field.TypeString, value)
 	}
 	if value, ok := ctuo.mutation.Slot(); ok {
 		_spec.SetField(customertokens.FieldSlot, field.TypeInt, value)

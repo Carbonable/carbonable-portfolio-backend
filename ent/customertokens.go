@@ -18,6 +18,8 @@ type CustomerTokens struct {
 	ID int `json:"id,omitempty"`
 	// Address holds the value of the "address" field.
 	Address string `json:"address,omitempty"`
+	// ProjectAddress holds the value of the "project_address" field.
+	ProjectAddress string `json:"project_address,omitempty"`
 	// Slot holds the value of the "slot" field.
 	Slot int `json:"slot,omitempty"`
 	// TokenID holds the value of the "token_id" field.
@@ -55,7 +57,7 @@ func (*CustomerTokens) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case customertokens.FieldID, customertokens.FieldSlot:
 			values[i] = new(sql.NullInt64)
-		case customertokens.FieldAddress, customertokens.FieldTokenID, customertokens.FieldValue:
+		case customertokens.FieldAddress, customertokens.FieldProjectAddress, customertokens.FieldTokenID, customertokens.FieldValue:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -83,6 +85,12 @@ func (ct *CustomerTokens) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field address", values[i])
 			} else if value.Valid {
 				ct.Address = value.String
+			}
+		case customertokens.FieldProjectAddress:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field project_address", values[i])
+			} else if value.Valid {
+				ct.ProjectAddress = value.String
 			}
 		case customertokens.FieldSlot:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -145,6 +153,9 @@ func (ct *CustomerTokens) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ct.ID))
 	builder.WriteString("address=")
 	builder.WriteString(ct.Address)
+	builder.WriteString(", ")
+	builder.WriteString("project_address=")
+	builder.WriteString(ct.ProjectAddress)
 	builder.WriteString(", ")
 	builder.WriteString("slot=")
 	builder.WriteString(fmt.Sprintf("%v", ct.Slot))

@@ -32,21 +32,22 @@ const (
 // CustomerTokensMutation represents an operation that mutates the CustomerTokens nodes in the graph.
 type CustomerTokensMutation struct {
 	config
-	op             Op
-	typ            string
-	id             *int
-	address        *string
-	slot           *int
-	addslot        *int
-	token_id       *string
-	value          *string
-	clearedFields  map[string]struct{}
-	project        map[int]struct{}
-	removedproject map[int]struct{}
-	clearedproject bool
-	done           bool
-	oldValue       func(context.Context) (*CustomerTokens, error)
-	predicates     []predicate.CustomerTokens
+	op              Op
+	typ             string
+	id              *int
+	address         *string
+	project_address *string
+	slot            *int
+	addslot         *int
+	token_id        *string
+	value           *string
+	clearedFields   map[string]struct{}
+	project         map[int]struct{}
+	removedproject  map[int]struct{}
+	clearedproject  bool
+	done            bool
+	oldValue        func(context.Context) (*CustomerTokens, error)
+	predicates      []predicate.CustomerTokens
 }
 
 var _ ent.Mutation = (*CustomerTokensMutation)(nil)
@@ -181,6 +182,42 @@ func (m *CustomerTokensMutation) OldAddress(ctx context.Context) (v string, err 
 // ResetAddress resets all changes to the "address" field.
 func (m *CustomerTokensMutation) ResetAddress() {
 	m.address = nil
+}
+
+// SetProjectAddress sets the "project_address" field.
+func (m *CustomerTokensMutation) SetProjectAddress(s string) {
+	m.project_address = &s
+}
+
+// ProjectAddress returns the value of the "project_address" field in the mutation.
+func (m *CustomerTokensMutation) ProjectAddress() (r string, exists bool) {
+	v := m.project_address
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldProjectAddress returns the old "project_address" field's value of the CustomerTokens entity.
+// If the CustomerTokens object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomerTokensMutation) OldProjectAddress(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldProjectAddress is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldProjectAddress requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldProjectAddress: %w", err)
+	}
+	return oldValue.ProjectAddress, nil
+}
+
+// ResetProjectAddress resets all changes to the "project_address" field.
+func (m *CustomerTokensMutation) ResetProjectAddress() {
+	m.project_address = nil
 }
 
 // SetSlot sets the "slot" field.
@@ -399,9 +436,12 @@ func (m *CustomerTokensMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CustomerTokensMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m.address != nil {
 		fields = append(fields, customertokens.FieldAddress)
+	}
+	if m.project_address != nil {
+		fields = append(fields, customertokens.FieldProjectAddress)
 	}
 	if m.slot != nil {
 		fields = append(fields, customertokens.FieldSlot)
@@ -422,6 +462,8 @@ func (m *CustomerTokensMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case customertokens.FieldAddress:
 		return m.Address()
+	case customertokens.FieldProjectAddress:
+		return m.ProjectAddress()
 	case customertokens.FieldSlot:
 		return m.Slot()
 	case customertokens.FieldTokenID:
@@ -439,6 +481,8 @@ func (m *CustomerTokensMutation) OldField(ctx context.Context, name string) (ent
 	switch name {
 	case customertokens.FieldAddress:
 		return m.OldAddress(ctx)
+	case customertokens.FieldProjectAddress:
+		return m.OldProjectAddress(ctx)
 	case customertokens.FieldSlot:
 		return m.OldSlot(ctx)
 	case customertokens.FieldTokenID:
@@ -460,6 +504,13 @@ func (m *CustomerTokensMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAddress(v)
+		return nil
+	case customertokens.FieldProjectAddress:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetProjectAddress(v)
 		return nil
 	case customertokens.FieldSlot:
 		v, ok := value.(int)
@@ -548,6 +599,9 @@ func (m *CustomerTokensMutation) ResetField(name string) error {
 	switch name {
 	case customertokens.FieldAddress:
 		m.ResetAddress()
+		return nil
+	case customertokens.FieldProjectAddress:
+		m.ResetProjectAddress()
 		return nil
 	case customertokens.FieldSlot:
 		m.ResetSlot()

@@ -16,6 +16,7 @@ type CustomerTokens struct {
 func (CustomerTokens) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("address"),
+		field.String("project_address"),
 		field.Int("slot"),
 		field.String("token_id"),
 		field.String("value"),

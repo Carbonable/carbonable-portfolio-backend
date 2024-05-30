@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.13.1
 	github.com/NethermindEth/juno v0.11.8
 	github.com/NethermindEth/starknet.go v0.7.1-0.20240523132738-4644bbecf6ee
-	github.com/carbonable-labs/indexer.sdk v0.0.3
+	github.com/carbonable-labs/indexer.sdk v0.0.7
 	github.com/ethereum/go-ethereum v1.13.10
 	github.com/jackc/pgx/v5 v5.6.0
 	github.com/mattn/go-sqlite3 v1.14.16

@@ -28,6 +28,12 @@ func (ctc *CustomerTokensCreate) SetAddress(s string) *CustomerTokensCreate {
 	return ctc
 }
 
+// SetProjectAddress sets the "project_address" field.
+func (ctc *CustomerTokensCreate) SetProjectAddress(s string) *CustomerTokensCreate {
+	ctc.mutation.SetProjectAddress(s)
+	return ctc
+}
+
 // SetSlot sets the "slot" field.
 func (ctc *CustomerTokensCreate) SetSlot(i int) *CustomerTokensCreate {
 	ctc.mutation.SetSlot(i)
@@ -98,6 +104,9 @@ func (ctc *CustomerTokensCreate) check() error {
 	if _, ok := ctc.mutation.Address(); !ok {
 		return &ValidationError{Name: "address", err: errors.New(`ent: missing required field "CustomerTokens.address"`)}
 	}
+	if _, ok := ctc.mutation.ProjectAddress(); !ok {
+		return &ValidationError{Name: "project_address", err: errors.New(`ent: missing required field "CustomerTokens.project_address"`)}
+	}
 	if _, ok := ctc.mutation.Slot(); !ok {
 		return &ValidationError{Name: "slot", err: errors.New(`ent: missing required field "CustomerTokens.slot"`)}
 	}
@@ -137,6 +146,10 @@ func (ctc *CustomerTokensCreate) createSpec() (*CustomerTokens, *sqlgraph.Create
 	if value, ok := ctc.mutation.Address(); ok {
 		_spec.SetField(customertokens.FieldAddress, field.TypeString, value)
 		_node.Address = value
+	}
+	if value, ok := ctc.mutation.ProjectAddress(); ok {
+		_spec.SetField(customertokens.FieldProjectAddress, field.TypeString, value)
+		_node.ProjectAddress = value
 	}
 	if value, ok := ctc.mutation.Slot(); ok {
 		_spec.SetField(customertokens.FieldSlot, field.TypeInt, value)
@@ -227,6 +240,18 @@ func (u *CustomerTokensUpsert) SetAddress(v string) *CustomerTokensUpsert {
 // UpdateAddress sets the "address" field to the value that was provided on create.
 func (u *CustomerTokensUpsert) UpdateAddress() *CustomerTokensUpsert {
 	u.SetExcluded(customertokens.FieldAddress)
+	return u
+}
+
+// SetProjectAddress sets the "project_address" field.
+func (u *CustomerTokensUpsert) SetProjectAddress(v string) *CustomerTokensUpsert {
+	u.Set(customertokens.FieldProjectAddress, v)
+	return u
+}
+
+// UpdateProjectAddress sets the "project_address" field to the value that was provided on create.
+func (u *CustomerTokensUpsert) UpdateProjectAddress() *CustomerTokensUpsert {
+	u.SetExcluded(customertokens.FieldProjectAddress)
 	return u
 }
 
@@ -323,6 +348,20 @@ func (u *CustomerTokensUpsertOne) SetAddress(v string) *CustomerTokensUpsertOne 
 func (u *CustomerTokensUpsertOne) UpdateAddress() *CustomerTokensUpsertOne {
 	return u.Update(func(s *CustomerTokensUpsert) {
 		s.UpdateAddress()
+	})
+}
+
+// SetProjectAddress sets the "project_address" field.
+func (u *CustomerTokensUpsertOne) SetProjectAddress(v string) *CustomerTokensUpsertOne {
+	return u.Update(func(s *CustomerTokensUpsert) {
+		s.SetProjectAddress(v)
+	})
+}
+
+// UpdateProjectAddress sets the "project_address" field to the value that was provided on create.
+func (u *CustomerTokensUpsertOne) UpdateProjectAddress() *CustomerTokensUpsertOne {
+	return u.Update(func(s *CustomerTokensUpsert) {
+		s.UpdateProjectAddress()
 	})
 }
 
@@ -589,6 +628,20 @@ func (u *CustomerTokensUpsertBulk) SetAddress(v string) *CustomerTokensUpsertBul
 func (u *CustomerTokensUpsertBulk) UpdateAddress() *CustomerTokensUpsertBulk {
 	return u.Update(func(s *CustomerTokensUpsert) {
 		s.UpdateAddress()
+	})
+}
+
+// SetProjectAddress sets the "project_address" field.
+func (u *CustomerTokensUpsertBulk) SetProjectAddress(v string) *CustomerTokensUpsertBulk {
+	return u.Update(func(s *CustomerTokensUpsert) {
+		s.SetProjectAddress(v)
+	})
+}
+
+// UpdateProjectAddress sets the "project_address" field to the value that was provided on create.
+func (u *CustomerTokensUpsertBulk) UpdateProjectAddress() *CustomerTokensUpsertBulk {
+	return u.Update(func(s *CustomerTokensUpsert) {
+		s.UpdateProjectAddress()
 	})
 }
 

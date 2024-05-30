@@ -58,6 +58,11 @@ func Address(v string) predicate.CustomerTokens {
 	return predicate.CustomerTokens(sql.FieldEQ(FieldAddress, v))
 }
 
+// ProjectAddress applies equality check predicate on the "project_address" field. It's identical to ProjectAddressEQ.
+func ProjectAddress(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldEQ(FieldProjectAddress, v))
+}
+
 // Slot applies equality check predicate on the "slot" field. It's identical to SlotEQ.
 func Slot(v int) predicate.CustomerTokens {
 	return predicate.CustomerTokens(sql.FieldEQ(FieldSlot, v))
@@ -136,6 +141,71 @@ func AddressEqualFold(v string) predicate.CustomerTokens {
 // AddressContainsFold applies the ContainsFold predicate on the "address" field.
 func AddressContainsFold(v string) predicate.CustomerTokens {
 	return predicate.CustomerTokens(sql.FieldContainsFold(FieldAddress, v))
+}
+
+// ProjectAddressEQ applies the EQ predicate on the "project_address" field.
+func ProjectAddressEQ(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldEQ(FieldProjectAddress, v))
+}
+
+// ProjectAddressNEQ applies the NEQ predicate on the "project_address" field.
+func ProjectAddressNEQ(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldNEQ(FieldProjectAddress, v))
+}
+
+// ProjectAddressIn applies the In predicate on the "project_address" field.
+func ProjectAddressIn(vs ...string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldIn(FieldProjectAddress, vs...))
+}
+
+// ProjectAddressNotIn applies the NotIn predicate on the "project_address" field.
+func ProjectAddressNotIn(vs ...string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldNotIn(FieldProjectAddress, vs...))
+}
+
+// ProjectAddressGT applies the GT predicate on the "project_address" field.
+func ProjectAddressGT(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldGT(FieldProjectAddress, v))
+}
+
+// ProjectAddressGTE applies the GTE predicate on the "project_address" field.
+func ProjectAddressGTE(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldGTE(FieldProjectAddress, v))
+}
+
+// ProjectAddressLT applies the LT predicate on the "project_address" field.
+func ProjectAddressLT(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldLT(FieldProjectAddress, v))
+}
+
+// ProjectAddressLTE applies the LTE predicate on the "project_address" field.
+func ProjectAddressLTE(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldLTE(FieldProjectAddress, v))
+}
+
+// ProjectAddressContains applies the Contains predicate on the "project_address" field.
+func ProjectAddressContains(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldContains(FieldProjectAddress, v))
+}
+
+// ProjectAddressHasPrefix applies the HasPrefix predicate on the "project_address" field.
+func ProjectAddressHasPrefix(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldHasPrefix(FieldProjectAddress, v))
+}
+
+// ProjectAddressHasSuffix applies the HasSuffix predicate on the "project_address" field.
+func ProjectAddressHasSuffix(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldHasSuffix(FieldProjectAddress, v))
+}
+
+// ProjectAddressEqualFold applies the EqualFold predicate on the "project_address" field.
+func ProjectAddressEqualFold(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldEqualFold(FieldProjectAddress, v))
+}
+
+// ProjectAddressContainsFold applies the ContainsFold predicate on the "project_address" field.
+func ProjectAddressContainsFold(v string) predicate.CustomerTokens {
+	return predicate.CustomerTokens(sql.FieldContainsFold(FieldProjectAddress, v))
 }
 
 // SlotEQ applies the EQ predicate on the "slot" field.

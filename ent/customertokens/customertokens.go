@@ -14,6 +14,8 @@ const (
 	FieldID = "id"
 	// FieldAddress holds the string denoting the address field in the database.
 	FieldAddress = "address"
+	// FieldProjectAddress holds the string denoting the project_address field in the database.
+	FieldProjectAddress = "project_address"
 	// FieldSlot holds the string denoting the slot field in the database.
 	FieldSlot = "slot"
 	// FieldTokenID holds the string denoting the token_id field in the database.
@@ -35,6 +37,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldAddress,
+	FieldProjectAddress,
 	FieldSlot,
 	FieldTokenID,
 	FieldValue,
@@ -67,6 +70,11 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByAddress orders the results by the address field.
 func ByAddress(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAddress, opts...).ToFunc()
+}
+
+// ByProjectAddress orders the results by the project_address field.
+func ByProjectAddress(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProjectAddress, opts...).ToFunc()
 }
 
 // BySlot orders the results by the slot field.
