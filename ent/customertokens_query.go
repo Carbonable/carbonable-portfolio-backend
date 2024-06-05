@@ -19,11 +19,14 @@ import (
 // CustomerTokensQuery is the builder for querying CustomerTokens entities.
 type CustomerTokensQuery struct {
 	config
-	ctx         *QueryContext
-	order       []customertokens.OrderOption
-	inters      []Interceptor
-	predicates  []predicate.CustomerTokens
-	withProject *ProjectQuery
+	ctx              *QueryContext
+	order            []customertokens.OrderOption
+	inters           []Interceptor
+	predicates       []predicate.CustomerTokens
+	withProject      *ProjectQuery
+	modifiers        []func(*sql.Selector)
+	loadTotal        []func(context.Context, []*CustomerTokens) error
+	withNamedProject map[string]*ProjectQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -383,6 +386,9 @@ func (ctq *CustomerTokensQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(ctq.modifiers) > 0 {
+		_spec.Modifiers = ctq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -396,6 +402,18 @@ func (ctq *CustomerTokensQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 		if err := ctq.loadProject(ctx, query, nodes,
 			func(n *CustomerTokens) { n.Edges.Project = []*Project{} },
 			func(n *CustomerTokens, e *Project) { n.Edges.Project = append(n.Edges.Project, e) }); err != nil {
+			return nil, err
+		}
+	}
+	for name, query := range ctq.withNamedProject {
+		if err := ctq.loadProject(ctx, query, nodes,
+			func(n *CustomerTokens) { n.appendNamedProject(name) },
+			func(n *CustomerTokens, e *Project) { n.appendNamedProject(name, e) }); err != nil {
+			return nil, err
+		}
+	}
+	for i := range ctq.loadTotal {
+		if err := ctq.loadTotal[i](ctx, nodes); err != nil {
 			return nil, err
 		}
 	}
@@ -466,6 +484,9 @@ func (ctq *CustomerTokensQuery) loadProject(ctx context.Context, query *ProjectQ
 
 func (ctq *CustomerTokensQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := ctq.querySpec()
+	if len(ctq.modifiers) > 0 {
+		_spec.Modifiers = ctq.modifiers
+	}
 	_spec.Node.Columns = ctq.ctx.Fields
 	if len(ctq.ctx.Fields) > 0 {
 		_spec.Unique = ctq.ctx.Unique != nil && *ctq.ctx.Unique
@@ -543,6 +564,20 @@ func (ctq *CustomerTokensQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// WithNamedProject tells the query-builder to eager-load the nodes that are connected to the "project"
+// edge with the given name. The optional arguments are used to configure the query builder of the edge.
+func (ctq *CustomerTokensQuery) WithNamedProject(name string, opts ...func(*ProjectQuery)) *CustomerTokensQuery {
+	query := (&ProjectClient{config: ctq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	if ctq.withNamedProject == nil {
+		ctq.withNamedProject = make(map[string]*ProjectQuery)
+	}
+	ctq.withNamedProject[name] = query
+	return ctq
 }
 
 // CustomerTokensGroupBy is the group-by builder for CustomerTokens entities.

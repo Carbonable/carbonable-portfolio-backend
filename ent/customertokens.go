@@ -39,6 +39,10 @@ type CustomerTokensEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
+	// totalCount holds the count of the edges above.
+	totalCount [1]map[string]int
+
+	namedProject map[string][]*Project
 }
 
 // ProjectOrErr returns the Project value or an error if the edge
@@ -167,6 +171,30 @@ func (ct *CustomerTokens) String() string {
 	builder.WriteString(ct.Value)
 	builder.WriteByte(')')
 	return builder.String()
+}
+
+// NamedProject returns the Project named value or an error if the edge was not
+// loaded in eager-loading with this name.
+func (ct *CustomerTokens) NamedProject(name string) ([]*Project, error) {
+	if ct.Edges.namedProject == nil {
+		return nil, &NotLoadedError{edge: name}
+	}
+	nodes, ok := ct.Edges.namedProject[name]
+	if !ok {
+		return nil, &NotLoadedError{edge: name}
+	}
+	return nodes, nil
+}
+
+func (ct *CustomerTokens) appendNamedProject(name string, edges ...*Project) {
+	if ct.Edges.namedProject == nil {
+		ct.Edges.namedProject = make(map[string][]*Project)
+	}
+	if len(edges) == 0 {
+		ct.Edges.namedProject[name] = []*Project{}
+	} else {
+		ct.Edges.namedProject[name] = append(ct.Edges.namedProject[name], edges...)
+	}
 }
 
 // CustomerTokensSlice is a parsable slice of CustomerTokens.

@@ -1,0 +1,24 @@
+type Token {
+  token_id: ID!
+  value: String
+}
+
+type CustomerTokensOutput {
+  id: ID!
+  name: String!
+  slot: Int!
+  address: String!
+  minter_address: String!
+  yielder_address: String
+  offseter_address: String
+  abi: String!
+  image: String!
+  tokens: [Token]
+}
+
+extend type Query {
+  """
+  The list of tokens per project for an address
+  """
+  customerTokens(address: String!): [CustomerTokensOutput!]
+}
