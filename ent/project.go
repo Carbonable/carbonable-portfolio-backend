@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
 
 // Project is the model entity for the Project schema.
@@ -26,7 +27,7 @@ type Project struct {
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Abi holds the value of the "abi" field.
-	Abi json.RawMessage `json:"abi,omitempty"`
+	Abi schema.ProjectAbi `json:"abi,omitempty"`
 	// Image holds the value of the "image" field.
 	Image string `json:"image,omitempty"`
 	// YielderAddress holds the value of the "yielder_address" field.

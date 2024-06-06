@@ -6,11 +6,18 @@ package resolver
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/NethermindEth/starknet.go/utils"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
+
+// Abi is the resolver for the abi field.
+func (r *customerTokensOutputResolver) Abi(ctx context.Context, obj *schema.CustomerTokensDTO) (*gql.Abi, error) {
+	panic(fmt.Errorf("not implemented: Abi - abi"))
+}
 
 // CustomerTokens is the resolver for the customerTokens field.
 func (r *queryResolver) CustomerTokens(ctx context.Context, address string) ([]*schema.CustomerTokensDTO, error) {
@@ -41,7 +48,7 @@ func (r *queryResolver) CustomerTokens(ctx context.Context, address string) ([]*
 			OffseterAddress: p.OffseterAddress,
 			Tokens:          tokens,
 			Slot:            p.Slot,
-			Abi:             string(p.Abi),
+			Abi:             p.Abi,
 			Image:           p.Image,
 		}
 		ctds = append(ctds, ctd)
@@ -49,3 +56,10 @@ func (r *queryResolver) CustomerTokens(ctx context.Context, address string) ([]*
 
 	return ctds, nil
 }
+
+// CustomerTokensOutput returns gql.CustomerTokensOutputResolver implementation.
+func (r *Resolver) CustomerTokensOutput() gql.CustomerTokensOutputResolver {
+	return &customerTokensOutputResolver{r}
+}
+
+type customerTokensOutputResolver struct{ *Resolver }

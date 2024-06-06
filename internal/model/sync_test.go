@@ -9,6 +9,7 @@ import (
 	"github.com/NethermindEth/starknet.go/rpc"
 	"github.com/carbonable/carbonable-portfolio-backend/config"
 	"github.com/carbonable/carbonable-portfolio-backend/ent"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -44,9 +45,9 @@ func TestSynchronizeWithAlreadyExisting(t *testing.T) {
 		t.Errorf("failed to dial in rpc provider : %s", err)
 	}
 
-	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename1").SetImage("").SetSlot(1).SetMinterAddress("").SetAbi(json.RawMessage(`{}`)).SaveX(ctx)
-	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename2").SetImage("").SetSlot(2).SetMinterAddress("").SetAbi(json.RawMessage(`{}`)).SaveX(ctx)
-	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename3").SetImage("").SetSlot(3).SetMinterAddress("").SetAbi(json.RawMessage(`{}`)).SaveX(ctx)
+	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename1").SetImage("").SetSlot(1).SetMinterAddress("").SetAbi(schema.ProjectAbi{Project: json.RawMessage(`{}`), Minter: json.RawMessage(`{}`)}).SaveX(ctx)
+	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename2").SetImage("").SetSlot(2).SetMinterAddress("").SetAbi(schema.ProjectAbi{Project: json.RawMessage(`{}`), Minter: json.RawMessage(`{}`)}).SaveX(ctx)
+	_ = db.Project.Create().SetAddress("0x00130b5a3035eef0470cff2f9a450a7a6856a3c5a4ea3f5b7886c2d03a50d2bf").SetName("fakename3").SetImage("").SetSlot(3).SetMinterAddress("").SetAbi(schema.ProjectAbi{Project: json.RawMessage(`{}`), Minter: json.RawMessage(`{}`)}).SaveX(ctx)
 
 	// Run sync code
 	Synchronize(ctx, db, client)

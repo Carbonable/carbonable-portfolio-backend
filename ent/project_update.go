@@ -4,17 +4,16 @@ package ent
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"entgo.io/ent/dialect/sql/sqljson"
 	"entgo.io/ent/schema/field"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/predicate"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
 
 // ProjectUpdate is the builder for updating Project entities.
@@ -94,14 +93,16 @@ func (pu *ProjectUpdate) SetNillableName(s *string) *ProjectUpdate {
 }
 
 // SetAbi sets the "abi" field.
-func (pu *ProjectUpdate) SetAbi(jm json.RawMessage) *ProjectUpdate {
-	pu.mutation.SetAbi(jm)
+func (pu *ProjectUpdate) SetAbi(sa schema.ProjectAbi) *ProjectUpdate {
+	pu.mutation.SetAbi(sa)
 	return pu
 }
 
-// AppendAbi appends jm to the "abi" field.
-func (pu *ProjectUpdate) AppendAbi(jm json.RawMessage) *ProjectUpdate {
-	pu.mutation.AppendAbi(jm)
+// SetNillableAbi sets the "abi" field if the given value is not nil.
+func (pu *ProjectUpdate) SetNillableAbi(sa *schema.ProjectAbi) *ProjectUpdate {
+	if sa != nil {
+		pu.SetAbi(*sa)
+	}
 	return pu
 }
 
@@ -254,11 +255,6 @@ func (pu *ProjectUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := pu.mutation.Abi(); ok {
 		_spec.SetField(project.FieldAbi, field.TypeJSON, value)
 	}
-	if value, ok := pu.mutation.AppendedAbi(); ok {
-		_spec.AddModifier(func(u *sql.UpdateBuilder) {
-			sqljson.Append(u, project.FieldAbi, value)
-		})
-	}
 	if value, ok := pu.mutation.Image(); ok {
 		_spec.SetField(project.FieldImage, field.TypeString, value)
 	}
@@ -403,14 +399,16 @@ func (puo *ProjectUpdateOne) SetNillableName(s *string) *ProjectUpdateOne {
 }
 
 // SetAbi sets the "abi" field.
-func (puo *ProjectUpdateOne) SetAbi(jm json.RawMessage) *ProjectUpdateOne {
-	puo.mutation.SetAbi(jm)
+func (puo *ProjectUpdateOne) SetAbi(sa schema.ProjectAbi) *ProjectUpdateOne {
+	puo.mutation.SetAbi(sa)
 	return puo
 }
 
-// AppendAbi appends jm to the "abi" field.
-func (puo *ProjectUpdateOne) AppendAbi(jm json.RawMessage) *ProjectUpdateOne {
-	puo.mutation.AppendAbi(jm)
+// SetNillableAbi sets the "abi" field if the given value is not nil.
+func (puo *ProjectUpdateOne) SetNillableAbi(sa *schema.ProjectAbi) *ProjectUpdateOne {
+	if sa != nil {
+		puo.SetAbi(*sa)
+	}
 	return puo
 }
 
@@ -592,11 +590,6 @@ func (puo *ProjectUpdateOne) sqlSave(ctx context.Context) (_node *Project, err e
 	}
 	if value, ok := puo.mutation.Abi(); ok {
 		_spec.SetField(project.FieldAbi, field.TypeJSON, value)
-	}
-	if value, ok := puo.mutation.AppendedAbi(); ok {
-		_spec.AddModifier(func(u *sql.UpdateBuilder) {
-			sqljson.Append(u, project.FieldAbi, value)
-		})
 	}
 	if value, ok := puo.mutation.Image(); ok {
 		_spec.SetField(project.FieldImage, field.TypeString, value)

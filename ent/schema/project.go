@@ -10,6 +10,11 @@ import (
 	"entgo.io/ent/schema/index"
 )
 
+type ProjectAbi struct {
+	Project json.RawMessage `json:"project"`
+	Minter  json.RawMessage `json:"minter"`
+}
+
 // Project holds the schema definition for the Project entity.
 type Project struct {
 	ent.Schema
@@ -22,8 +27,7 @@ func (Project) Fields() []ent.Field {
 		field.Int("slot"),
 		field.String("minter_address"),
 		field.String("name"),
-		field.JSON("abi", json.RawMessage{}).Annotations(entgql.Type("String")),
-
+		field.JSON("abi", ProjectAbi{}).Annotations(entgql.Type("Abi")),
 		field.Text("image"),
 		field.String("yielder_address").Optional(),
 		field.String("offseter_address").Optional(),

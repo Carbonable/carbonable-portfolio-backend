@@ -21,7 +21,7 @@ import (
 // region    ************************** generated!.gotpl **************************
 
 type ProjectResolver interface {
-	Abi(ctx context.Context, obj *ent.Project) (string, error)
+	Abi(ctx context.Context, obj *ent.Project) (*Abi, error)
 }
 type QueryResolver interface {
 	Node(ctx context.Context, id string) (ent.Noder, error)
@@ -844,9 +844,9 @@ func (ec *executionContext) _Project_abi(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*Abi)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Project_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -856,7 +856,13 @@ func (ec *executionContext) fieldContext_Project_abi(_ context.Context, field gr
 		IsMethod:   true,
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			switch field.Name {
+			case "project":
+				return ec.fieldContext_Abi_project(ctx, field)
+			case "minter":
+				return ec.fieldContext_Abi_minter(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Abi", field.Name)
 		},
 	}
 	return fc, nil

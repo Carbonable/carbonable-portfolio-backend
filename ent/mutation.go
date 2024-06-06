@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"sync"
@@ -14,6 +13,7 @@ import (
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/predicate"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
 
 const (
@@ -711,8 +711,7 @@ type ProjectMutation struct {
 	addslot          *int
 	minter_address   *string
 	name             *string
-	abi              *json.RawMessage
-	appendabi        json.RawMessage
+	abi              *schema.ProjectAbi
 	image            *string
 	yielder_address  *string
 	offseter_address *string
@@ -988,13 +987,12 @@ func (m *ProjectMutation) ResetName() {
 }
 
 // SetAbi sets the "abi" field.
-func (m *ProjectMutation) SetAbi(jm json.RawMessage) {
-	m.abi = &jm
-	m.appendabi = nil
+func (m *ProjectMutation) SetAbi(sa schema.ProjectAbi) {
+	m.abi = &sa
 }
 
 // Abi returns the value of the "abi" field in the mutation.
-func (m *ProjectMutation) Abi() (r json.RawMessage, exists bool) {
+func (m *ProjectMutation) Abi() (r schema.ProjectAbi, exists bool) {
 	v := m.abi
 	if v == nil {
 		return
@@ -1005,7 +1003,7 @@ func (m *ProjectMutation) Abi() (r json.RawMessage, exists bool) {
 // OldAbi returns the old "abi" field's value of the Project entity.
 // If the Project object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ProjectMutation) OldAbi(ctx context.Context) (v json.RawMessage, err error) {
+func (m *ProjectMutation) OldAbi(ctx context.Context) (v schema.ProjectAbi, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAbi is only allowed on UpdateOne operations")
 	}
@@ -1019,23 +1017,9 @@ func (m *ProjectMutation) OldAbi(ctx context.Context) (v json.RawMessage, err er
 	return oldValue.Abi, nil
 }
 
-// AppendAbi adds jm to the "abi" field.
-func (m *ProjectMutation) AppendAbi(jm json.RawMessage) {
-	m.appendabi = append(m.appendabi, jm...)
-}
-
-// AppendedAbi returns the list of values that were appended to the "abi" field in this mutation.
-func (m *ProjectMutation) AppendedAbi() (json.RawMessage, bool) {
-	if len(m.appendabi) == 0 {
-		return nil, false
-	}
-	return m.appendabi, true
-}
-
 // ResetAbi resets all changes to the "abi" field.
 func (m *ProjectMutation) ResetAbi() {
 	m.abi = nil
-	m.appendabi = nil
 }
 
 // SetImage sets the "image" field.
@@ -1372,7 +1356,7 @@ func (m *ProjectMutation) SetField(name string, value ent.Value) error {
 		m.SetName(v)
 		return nil
 	case project.FieldAbi:
-		v, ok := value.(json.RawMessage)
+		v, ok := value.(schema.ProjectAbi)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

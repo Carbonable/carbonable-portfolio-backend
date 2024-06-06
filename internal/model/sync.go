@@ -14,6 +14,7 @@ import (
 	"github.com/carbonable-labs/indexer.sdk/sdk"
 	"github.com/carbonable/carbonable-portfolio-backend/config"
 	"github.com/carbonable/carbonable-portfolio-backend/ent"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
 
 // Sync contracts with onchain data
@@ -52,7 +53,7 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 		slog.Error("faield to get slot uri", err)
 		return
 	}
-	abi, err := getAbi(ctx, rpc, c)
+	abi, err := getAbi(ctx, rpc, c.Address)
 	if err != nil {
 		slog.Error("faield to get abi", err)
 		return
@@ -62,6 +63,11 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 		slog.Error("faield to get minterAddr", err)
 		return
 	}
+	minterAbi, err := getAbi(ctx, rpc, minterAddr)
+	if err != nil {
+		slog.Error("faield to get abi", err)
+		return
+	}
 
 	err = db.Project.Create().
 		SetAddress(c.Address).
@@ -69,7 +75,10 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 		SetImage(slotUri.Image).
 		SetSlot(int(i)).
 		SetMinterAddress(minterAddr).
-		SetAbi(abi).
+		SetAbi(schema.ProjectAbi{
+			Project: abi,
+			Minter:  minterAbi,
+		}).
 		OnConflict(sql.ConflictColumns("address", "slot")).
 		UpdateNewValues().
 		Exec(ctx)
@@ -108,8 +117,8 @@ func slotIsSetup(ctx context.Context, rpc rpc.RpcProvider, c sdk.Contract, i *fe
 }
 
 // Get class abi from rpc using contract address
-func getAbi(ctx context.Context, r rpc.RpcProvider, c sdk.Contract) (json.RawMessage, error) {
-	addr, err := utils.HexToFelt(c.Address)
+func getAbi(ctx context.Context, r rpc.RpcProvider, a string) (json.RawMessage, error) {
+	addr, err := utils.HexToFelt(a)
 	if err != nil {
 		return nil, err
 	}

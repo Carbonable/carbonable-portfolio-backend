@@ -1,0 +1,4 @@
+type Abi {
+  project: String
+  minter: String
+}

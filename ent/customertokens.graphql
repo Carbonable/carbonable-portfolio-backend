@@ -11,7 +11,7 @@ type CustomerTokensOutput {
   minter_address: String!
   yielder_address: String
   offseter_address: String
-  abi: String!
+  abi: Abi!
   image: String!
   tokens: [Token]
 }

@@ -17,6 +17,10 @@ import (
 
 // region    ************************** generated!.gotpl **************************
 
+type CustomerTokensOutputResolver interface {
+	Abi(ctx context.Context, obj *schema.CustomerTokensDTO) (*Abi, error)
+}
+
 // endregion ************************** generated!.gotpl **************************
 
 // region    ***************************** args.gotpl *****************************
@@ -345,7 +349,7 @@ func (ec *executionContext) _CustomerTokensOutput_abi(ctx context.Context, field
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Abi, nil
+		return ec.resolvers.CustomerTokensOutput().Abi(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -357,19 +361,25 @@ func (ec *executionContext) _CustomerTokensOutput_abi(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*Abi)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_CustomerTokensOutput_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "CustomerTokensOutput",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			switch field.Name {
+			case "project":
+				return ec.fieldContext_Abi_project(ctx, field)
+			case "minter":
+				return ec.fieldContext_Abi_minter(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Abi", field.Name)
 		},
 	}
 	return fc, nil
@@ -577,41 +587,72 @@ func (ec *executionContext) _CustomerTokensOutput(ctx context.Context, sel ast.S
 		case "id":
 			out.Values[i] = ec._CustomerTokensOutput_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "name":
 			out.Values[i] = ec._CustomerTokensOutput_name(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "slot":
 			out.Values[i] = ec._CustomerTokensOutput_slot(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "address":
 			out.Values[i] = ec._CustomerTokensOutput_address(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "minter_address":
 			out.Values[i] = ec._CustomerTokensOutput_minter_address(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "yielder_address":
 			out.Values[i] = ec._CustomerTokensOutput_yielder_address(ctx, field, obj)
 		case "offseter_address":
 			out.Values[i] = ec._CustomerTokensOutput_offseter_address(ctx, field, obj)
 		case "abi":
-			out.Values[i] = ec._CustomerTokensOutput_abi(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				out.Invalids++
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._CustomerTokensOutput_abi(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
 			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		case "image":
 			out.Values[i] = ec._CustomerTokensOutput_image(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "tokens":
 			out.Values[i] = ec._CustomerTokensOutput_tokens(ctx, field, obj)

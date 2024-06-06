@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -13,6 +12,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 )
 
 // ProjectCreate is the builder for creating a Project entity.
@@ -48,8 +48,8 @@ func (pc *ProjectCreate) SetName(s string) *ProjectCreate {
 }
 
 // SetAbi sets the "abi" field.
-func (pc *ProjectCreate) SetAbi(jm json.RawMessage) *ProjectCreate {
-	pc.mutation.SetAbi(jm)
+func (pc *ProjectCreate) SetAbi(sa schema.ProjectAbi) *ProjectCreate {
+	pc.mutation.SetAbi(sa)
 	return pc
 }
 
@@ -336,7 +336,7 @@ func (u *ProjectUpsert) UpdateName() *ProjectUpsert {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsert) SetAbi(v json.RawMessage) *ProjectUpsert {
+func (u *ProjectUpsert) SetAbi(v schema.ProjectAbi) *ProjectUpsert {
 	u.Set(project.FieldAbi, v)
 	return u
 }
@@ -499,7 +499,7 @@ func (u *ProjectUpsertOne) UpdateName() *ProjectUpsertOne {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsertOne) SetAbi(v json.RawMessage) *ProjectUpsertOne {
+func (u *ProjectUpsertOne) SetAbi(v schema.ProjectAbi) *ProjectUpsertOne {
 	return u.Update(func(s *ProjectUpsert) {
 		s.SetAbi(v)
 	})
@@ -835,7 +835,7 @@ func (u *ProjectUpsertBulk) UpdateName() *ProjectUpsertBulk {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsertBulk) SetAbi(v json.RawMessage) *ProjectUpsertBulk {
+func (u *ProjectUpsertBulk) SetAbi(v schema.ProjectAbi) *ProjectUpsertBulk {
 	return u.Update(func(s *ProjectUpsert) {
 		s.SetAbi(v)
 	})

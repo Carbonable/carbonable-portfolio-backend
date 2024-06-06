@@ -13,16 +13,16 @@ type Token struct {
 }
 
 type CustomerTokensDTO struct {
-	ID              string  `json:"id"`
-	Name            string  `json:"name"`
-	Address         string  `json:"address"`
-	MinterAddress   string  `json:"minter_address"`
-	YielderAddress  string  `json:"yielder_address"`
-	OffseterAddress string  `json:"offseter_address"`
-	Abi             string  `json:"abi"`
-	Image           string  `json:"image"`
-	Tokens          []Token `json:"tokens"`
-	Slot            int     `json:"slot"`
+	ID              string     `json:"id"`
+	Name            string     `json:"name"`
+	Address         string     `json:"address"`
+	MinterAddress   string     `json:"minter_address"`
+	YielderAddress  string     `json:"yielder_address"`
+	OffseterAddress string     `json:"offseter_address"`
+	Abi             ProjectAbi `json:"abi"`
+	Image           string     `json:"image"`
+	Tokens          []Token    `json:"tokens"`
+	Slot            int        `json:"slot"`
 }
 
 // CustomerTokens holds the schema definition for the CustomerTokens entity.

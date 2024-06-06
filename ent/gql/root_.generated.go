@@ -32,6 +32,7 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	CustomerTokensOutput() CustomerTokensOutputResolver
 	Project() ProjectResolver
 	Query() QueryResolver
 }
@@ -40,6 +41,11 @@ type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
+	Abi struct {
+		Minter  func(childComplexity int) int
+		Project func(childComplexity int) int
+	}
+
 	CustomerTokens struct {
 		Address        func(childComplexity int) int
 		ID             func(childComplexity int) int
@@ -113,6 +119,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e, 0, 0, nil}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "Abi.minter":
+		if e.complexity.Abi.Minter == nil {
+			break
+		}
+
+		return e.complexity.Abi.Minter(childComplexity), true
+
+	case "Abi.project":
+		if e.complexity.Abi.Project == nil {
+			break
+		}
+
+		return e.complexity.Abi.Project(childComplexity), true
 
 	case "CustomerTokens.address":
 		if e.complexity.CustomerTokens.Address == nil {
@@ -483,7 +503,7 @@ type CustomerTokensOutput {
   minter_address: String!
   yielder_address: String
   offseter_address: String
-  abi: String!
+  abi: Abi!
   image: String!
   tokens: [Token]
 }
@@ -493,6 +513,11 @@ extend type Query {
   The list of tokens per project for an address
   """
   customerTokens(address: String!): [CustomerTokensOutput!]
+}
+`, BuiltIn: false},
+	{Name: "../project.graphql", Input: `type Abi {
+  project: String
+  minter: String
 }
 `, BuiltIn: false},
 	{Name: "../ent.graphql", Input: `directive @goField(forceResolver: Boolean, name: String, omittable: Boolean) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
@@ -562,7 +587,7 @@ type Project implements Node {
   slot: Int!
   minterAddress: String!
   name: String!
-  abi: String!
+  abi: Abi!
   image: String!
   yielderAddress: String
   offseterAddress: String

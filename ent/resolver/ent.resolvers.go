@@ -13,7 +13,7 @@ import (
 )
 
 // Abi is the resolver for the abi field.
-func (r *projectResolver) Abi(ctx context.Context, obj *ent.Project) (string, error) {
+func (r *projectResolver) Abi(ctx context.Context, obj *ent.Project) (*gql.Abi, error) {
 	panic(fmt.Errorf("not implemented: Abi - abi"))
 }
 
