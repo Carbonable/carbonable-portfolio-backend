@@ -22,7 +22,10 @@ func TestSynchronize(t *testing.T) {
 	}
 
 	// Run sync code
-	Synchronize(ctx, db, client)
+	err = Synchronize(ctx, db, client)
+	if err != nil {
+		t.Errorf("failed to sync : %s", err)
+	}
 
 	// Assert
 	project, err := db.Project.Query().All(context.Background())

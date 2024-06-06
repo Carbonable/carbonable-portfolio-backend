@@ -63,7 +63,16 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 		return
 	}
 
-	err = db.Project.Create().SetAddress(c.Address).SetName(slotUri.Name).SetImage(slotUri.Image).SetSlot(int(i)).SetMinterAddress(minterAddr).SetAbi(abi).OnConflict(sql.ConflictColumns("address", "slot")).UpdateNewValues().Exec(ctx)
+	err = db.Project.Create().
+		SetAddress(c.Address).
+		SetName(slotUri.Name).
+		SetImage(slotUri.Image).
+		SetSlot(int(i)).
+		SetMinterAddress(minterAddr).
+		SetAbi(abi).
+		OnConflict(sql.ConflictColumns("address", "slot")).
+		UpdateNewValues().
+		Exec(ctx)
 	if err != nil {
 		slog.Error("faield to create project", err)
 		return

@@ -104,9 +104,6 @@ func newCustomerTokensPaginateArgs(rv map[string]any) *customertokensPaginateArg
 	if v := rv[beforeField]; v != nil {
 		args.before = v.(*Cursor)
 	}
-	if v, ok := rv[whereField].(*CustomerTokensWhereInput); ok {
-		args.opts = append(args.opts, WithCustomerTokensFilter(v.Filter))
-	}
 	return args
 }
 
@@ -218,9 +215,6 @@ func newProjectPaginateArgs(rv map[string]any) *projectPaginateArgs {
 	}
 	if v := rv[beforeField]; v != nil {
 		args.before = v.(*Cursor)
-	}
-	if v, ok := rv[whereField].(*ProjectWhereInput); ok {
-		args.opts = append(args.opts, WithProjectFilter(v.Filter))
 	}
 	return args
 }
