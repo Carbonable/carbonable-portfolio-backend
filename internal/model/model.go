@@ -37,8 +37,49 @@ type ValueItem struct {
 }
 type DisplayableValue struct {
 	Type             DisplayableValueType `json:"type"`
-	Value            ValueItem            `json:"value"`
 	DisplayableValue string               `json:"displayable_value"`
+	Value            ValueItem            `json:"value"`
+	inner            felt.Felt
+}
+
+func (lhs *DisplayableValue) Add(rhs DisplayableValue) (DisplayableValue, error) {
+	if lhs.Type != rhs.Type {
+		return DisplayableValue{}, fmt.Errorf("type mismatch")
+	}
+
+	var result felt.Felt
+	result.Add(&lhs.inner, &rhs.inner)
+	return NewDisplayableValue(result, lhs.Value.Decimals, lhs.Type)
+}
+
+func (lhs *DisplayableValue) Sub(rhs DisplayableValue) (DisplayableValue, error) {
+	if lhs.Type != rhs.Type {
+		return DisplayableValue{}, fmt.Errorf("type mismatch")
+	}
+
+	var result felt.Felt
+	result.Sub(&lhs.inner, &rhs.inner)
+	return NewDisplayableValue(result, lhs.Value.Decimals, lhs.Type)
+}
+
+func (lhs *DisplayableValue) Div(rhs DisplayableValue) (DisplayableValue, error) {
+	if lhs.Type != rhs.Type {
+		return DisplayableValue{}, fmt.Errorf("type mismatch")
+	}
+
+	var result felt.Felt
+	result.Div(&lhs.inner, &rhs.inner)
+	return NewDisplayableValue(result, lhs.Value.Decimals, lhs.Type)
+}
+
+func (lhs *DisplayableValue) Mul(rhs DisplayableValue) (DisplayableValue, error) {
+	if lhs.Type != rhs.Type {
+		return DisplayableValue{}, fmt.Errorf("type mismatch")
+	}
+
+	var result felt.Felt
+	result.Mul(&lhs.inner, &rhs.inner)
+	return NewDisplayableValue(result, lhs.Value.Decimals, lhs.Type)
 }
 
 func NewDisplayableValue(value felt.Felt, decimals int, vt DisplayableValueType) (DisplayableValue, error) {
@@ -50,5 +91,6 @@ func NewDisplayableValue(value felt.Felt, decimals int, vt DisplayableValueType)
 			Decimals: decimals,
 		},
 		DisplayableValue: fmt.Sprintf("%.3f", dvv/math.Pow10(decimals)),
+		inner:            value,
 	}, nil
 }
