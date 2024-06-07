@@ -12,11 +12,6 @@ import (
 	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
 )
 
-// Abi is the resolver for the abi field.
-func (r *projectResolver) Abi(ctx context.Context, obj *ent.Project) (*gql.Abi, error) {
-	panic(fmt.Errorf("not implemented: Abi - abi"))
-}
-
 // Node is the resolver for the node field.
 func (r *queryResolver) Node(ctx context.Context, id string) (ent.Noder, error) {
 	panic(fmt.Errorf("not implemented: Node - node"))
@@ -27,11 +22,7 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []string) ([]ent.Noder, e
 	panic(fmt.Errorf("not implemented: Nodes - nodes"))
 }
 
-// Project returns gql.ProjectResolver implementation.
-func (r *Resolver) Project() gql.ProjectResolver { return &projectResolver{r} }
-
 // Query returns gql.QueryResolver implementation.
 func (r *Resolver) Query() gql.QueryResolver { return &queryResolver{r} }
 
-type projectResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }

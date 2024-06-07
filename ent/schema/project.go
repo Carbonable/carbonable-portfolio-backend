@@ -1,19 +1,12 @@
 package schema
 
 import (
-	"encoding/json"
-
-	"entgo.io/contrib/entgql"
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
-
-type ProjectAbi struct {
-	Project json.RawMessage `json:"project"`
-	Minter  json.RawMessage `json:"minter"`
-}
 
 // Project holds the schema definition for the Project entity.
 type Project struct {
@@ -27,7 +20,8 @@ func (Project) Fields() []ent.Field {
 		field.Int("slot"),
 		field.String("minter_address"),
 		field.String("name"),
-		field.JSON("abi", ProjectAbi{}).Annotations(entgql.Type("Abi")),
+		field.JSON("abi", model.ProjectAbi{}),
+		field.JSON("slot_uri", model.SlotUri{}),
 		field.Text("image"),
 		field.String("yielder_address").Optional(),
 		field.String("offseter_address").Optional(),

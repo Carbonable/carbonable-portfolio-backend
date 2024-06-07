@@ -6,60 +6,71 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/NethermindEth/juno/core/felt"
 	"github.com/NethermindEth/starknet.go/utils"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
-// Abi is the resolver for the abi field.
-func (r *customerTokensOutputResolver) Abi(ctx context.Context, obj *schema.CustomerTokensDTO) (*gql.Abi, error) {
-	panic(fmt.Errorf("not implemented: Abi - abi"))
-}
-
 // CustomerTokens is the resolver for the customerTokens field.
-func (r *queryResolver) CustomerTokens(ctx context.Context, address string) ([]*schema.CustomerTokensDTO, error) {
+func (r *queryResolver) CustomerTokens(ctx context.Context, address string) (*gql.CustomerTokensResponse, error) {
 	addressFelt, err := utils.HexToFelt(address)
 	if err != nil {
 		return nil, err
 	}
+
 	projects, err := r.Client.Project.Query().All(ctx)
 	customerTokens, err := r.Client.CustomerTokens.Query().Where(customertokens.AddressEQ(addressFelt.String())).All(ctx)
 
-	var ctds []*schema.CustomerTokensDTO
+	var ctds []*gql.CustomerTokensDto
+	total, _ := model.NewDisplayableValue(felt.Zero, 6, model.SlotValue)
+
 	for _, p := range projects {
-		tokens := []schema.Token{}
+		tokens := []*gql.Token{}
+		var valFelt felt.Felt
 		for _, ct := range customerTokens {
 			if p.Address == ct.ProjectAddress && p.Slot == ct.Slot {
-				tokens = append(tokens, schema.Token{
+				err := valFelt.UnmarshalJSON([]byte(ct.Value))
+				if err != nil {
+					return nil, err
+				}
+				dv, err := model.NewDisplayableValue(valFelt, 6, model.SlotValue)
+				if err != nil {
+					return nil, err
+				}
+				tokens = append(tokens, &gql.Token{
 					TokenID: ct.TokenID,
-					Value:   ct.Value,
+					Value:   &ct.Value,
 				})
+
+				total.Add(dv)
 			}
 		}
 
-		ctd := &schema.CustomerTokensDTO{
+		ctd := &gql.CustomerTokensDto{
 			Name:            p.Name,
 			Address:         p.Address,
 			MinterAddress:   p.MinterAddress,
-			YielderAddress:  p.YielderAddress,
-			OffseterAddress: p.OffseterAddress,
+			YielderAddress:  &p.YielderAddress,
+			OffseterAddress: &p.OffseterAddress,
 			Tokens:          tokens,
 			Slot:            p.Slot,
-			Abi:             p.Abi,
+			Abi:             &p.Abi,
 			Image:           p.Image,
+			AssetArea:       "",
+			AssetCarbonUnit: "",
 		}
 		ctds = append(ctds, ctd)
 	}
 
-	return ctds, nil
-}
+	global := &gql.GlobalDeposited{
+		Total: total.DisplayableValue,
+	}
 
-// CustomerTokensOutput returns gql.CustomerTokensOutputResolver implementation.
-func (r *Resolver) CustomerTokensOutput() gql.CustomerTokensOutputResolver {
-	return &customerTokensOutputResolver{r}
+	return &gql.CustomerTokensResponse{
+		Global:   global,
+		Projects: ctds,
+	}, nil
 }
-
-type customerTokensOutputResolver struct{ *Resolver }

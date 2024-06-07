@@ -3,7 +3,11 @@ type Token {
   value: String
 }
 
-type CustomerTokensOutput {
+type GlobalDeposited {
+  total: String!
+}
+
+type CustomerTokensDto {
   id: ID!
   name: String!
   slot: Int!
@@ -11,14 +15,21 @@ type CustomerTokensOutput {
   minter_address: String!
   yielder_address: String
   offseter_address: String
-  abi: Abi!
+  abi: ProjectAbi!
   image: String!
   tokens: [Token]
+  asset_area: String!
+  asset_carbon_unit: String!
+}
+
+type CustomerTokensResponse {
+  global: GlobalDeposited!
+  projects: [CustomerTokensDto!]
 }
 
 extend type Query {
   """
   The list of tokens per project for an address
   """
-  customerTokens(address: String!): [CustomerTokensOutput!]
+  customerTokens(address: String!): CustomerTokensResponse!
 }

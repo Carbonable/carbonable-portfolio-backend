@@ -1,4 +1,4 @@
-type Abi {
-  project: String
-  minter: String
+type ProjectAbi {
+  project: String!
+  minter: String!
 }

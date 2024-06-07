@@ -1,8 +1,6 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - "./ent/customertokens.graphql"
-  - "./ent/project.graphql"
-  - "./ent/ent.graphql"
+  - "./ent/*.graphql"
 
 # Where should the generated server code go?
 exec:
@@ -12,7 +10,7 @@ exec:
 
 # Where should any generated models go?
 model:
-  filename: ./ent/gql/models.generated.go
+  filename: ./ent/gql/models_gen.generated.go
   package: gql
 
 # Uncomment to enable federation
@@ -70,8 +68,10 @@ resolver:
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-  - github.com/carbonable/carbonable-portfolio-backend/ent
-  - github.com/carbonable/carbonable-portfolio-backend/ent/schema
+  - "github.com/99designs/gqlgen/graphql/introspection"
+  - "github.com/carbonable/carbonable-portfolio-backend/internal/model"
+  - "github.com/carbonable/carbonable-portfolio-backend/ent"
+  - "github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 
 # This section declares type mapping between the GraphQL and go type systems
 #
@@ -90,11 +90,3 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
-
-  CustomerTokensOutput:
-    model:
-      - github.com/carbonable/carbonable-portfolio-backend/ent/schema.CustomerTokensDTO
-
-  Node:
-    model:
-      - github.com/carbonable/carbonable-portfolio-backend/ent.Noder

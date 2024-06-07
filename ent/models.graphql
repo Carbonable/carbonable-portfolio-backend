@@ -1,0 +1,11 @@
+type ValueItem {
+  symbol: String
+  decimals: Int!
+  value: String!
+}
+
+type DisplayableValue {
+  type: String!
+  value: ValueItem!
+  displayable_value: String!
+}

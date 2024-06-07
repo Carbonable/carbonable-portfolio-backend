@@ -17,10 +17,6 @@ import (
 
 // region    ************************** generated!.gotpl **************************
 
-type CustomerTokensOutputResolver interface {
-	Abi(ctx context.Context, obj *schema.CustomerTokensDTO) (*Abi, error)
-}
-
 // endregion ************************** generated!.gotpl **************************
 
 // region    ***************************** args.gotpl *****************************
@@ -33,8 +29,8 @@ type CustomerTokensOutputResolver interface {
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _CustomerTokensOutput_id(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_id(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_id(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_id(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -64,9 +60,9 @@ func (ec *executionContext) _CustomerTokensOutput_id(ctx context.Context, field 
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_id(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_id(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -77,8 +73,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_id(_ context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_name(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_name(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_name(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_name(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -108,9 +104,9 @@ func (ec *executionContext) _CustomerTokensOutput_name(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_name(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_name(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -121,8 +117,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_name(_ context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_slot(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_slot(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_slot(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_slot(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -152,9 +148,9 @@ func (ec *executionContext) _CustomerTokensOutput_slot(ctx context.Context, fiel
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_slot(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_slot(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -165,8 +161,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_slot(_ context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_address(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_address(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_address(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_address(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -196,9 +192,9 @@ func (ec *executionContext) _CustomerTokensOutput_address(ctx context.Context, f
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -209,8 +205,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_address(_ context.
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_minter_address(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_minter_address(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_minter_address(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_minter_address(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -240,9 +236,9 @@ func (ec *executionContext) _CustomerTokensOutput_minter_address(ctx context.Con
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_minter_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_minter_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -253,8 +249,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_minter_address(_ c
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_yielder_address(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_yielder_address(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_yielder_address(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_yielder_address(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -276,14 +272,14 @@ func (ec *executionContext) _CustomerTokensOutput_yielder_address(ctx context.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_yielder_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_yielder_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -294,8 +290,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_yielder_address(_ 
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_offseter_address(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_offseter_address(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_offseter_address(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_offseter_address(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -317,14 +313,14 @@ func (ec *executionContext) _CustomerTokensOutput_offseter_address(ctx context.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_offseter_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_offseter_address(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -335,8 +331,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_offseter_address(_
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_abi(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_abi(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_abi(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_abi(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -349,7 +345,7 @@ func (ec *executionContext) _CustomerTokensOutput_abi(ctx context.Context, field
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.CustomerTokensOutput().Abi(rctx, obj)
+		return obj.Abi, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -361,32 +357,32 @@ func (ec *executionContext) _CustomerTokensOutput_abi(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Abi)
+	res := resTmp.(*schema.ProjectAbi)
 	fc.Result = res
-	return ec.marshalNAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx, field.Selections, res)
+	return ec.marshalNProjectAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "project":
-				return ec.fieldContext_Abi_project(ctx, field)
+				return ec.fieldContext_ProjectAbi_project(ctx, field)
 			case "minter":
-				return ec.fieldContext_Abi_minter(ctx, field)
+				return ec.fieldContext_ProjectAbi_minter(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type Abi", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type ProjectAbi", field.Name)
 		},
 	}
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_image(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_image(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_image(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_image(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -416,9 +412,9 @@ func (ec *executionContext) _CustomerTokensOutput_image(ctx context.Context, fie
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_image(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_image(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -429,8 +425,8 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_image(_ context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _CustomerTokensOutput_tokens(ctx context.Context, field graphql.CollectedField, obj *schema.CustomerTokensDTO) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_CustomerTokensOutput_tokens(ctx, field)
+func (ec *executionContext) _CustomerTokensDto_tokens(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_tokens(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -452,14 +448,14 @@ func (ec *executionContext) _CustomerTokensOutput_tokens(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]schema.Token)
+	res := resTmp.([]*Token)
 	fc.Result = res
-	return ec.marshalOToken2ᚕgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐToken(ctx, field.Selections, res)
+	return ec.marshalOToken2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐToken(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_CustomerTokensOutput_tokens(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_CustomerTokensDto_tokens(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "CustomerTokensOutput",
+		Object:     "CustomerTokensDto",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -476,7 +472,254 @@ func (ec *executionContext) fieldContext_CustomerTokensOutput_tokens(_ context.C
 	return fc, nil
 }
 
-func (ec *executionContext) _Token_token_id(ctx context.Context, field graphql.CollectedField, obj *schema.Token) (ret graphql.Marshaler) {
+func (ec *executionContext) _CustomerTokensDto_asset_area(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_asset_area(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AssetArea, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CustomerTokensDto_asset_area(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CustomerTokensDto",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CustomerTokensDto_asset_carbon_unit(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensDto_asset_carbon_unit(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AssetCarbonUnit, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CustomerTokensDto_asset_carbon_unit(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CustomerTokensDto",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CustomerTokensResponse_global(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensResponse_global(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Global, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*GlobalDeposited)
+	fc.Result = res
+	return ec.marshalNGlobalDeposited2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐGlobalDeposited(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CustomerTokensResponse_global(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CustomerTokensResponse",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "total":
+				return ec.fieldContext_GlobalDeposited_total(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type GlobalDeposited", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _CustomerTokensResponse_projects(ctx context.Context, field graphql.CollectedField, obj *CustomerTokensResponse) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_CustomerTokensResponse_projects(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Projects, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*CustomerTokensDto)
+	fc.Result = res
+	return ec.marshalOCustomerTokensDto2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensDtoᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_CustomerTokensResponse_projects(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "CustomerTokensResponse",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_CustomerTokensDto_id(ctx, field)
+			case "name":
+				return ec.fieldContext_CustomerTokensDto_name(ctx, field)
+			case "slot":
+				return ec.fieldContext_CustomerTokensDto_slot(ctx, field)
+			case "address":
+				return ec.fieldContext_CustomerTokensDto_address(ctx, field)
+			case "minter_address":
+				return ec.fieldContext_CustomerTokensDto_minter_address(ctx, field)
+			case "yielder_address":
+				return ec.fieldContext_CustomerTokensDto_yielder_address(ctx, field)
+			case "offseter_address":
+				return ec.fieldContext_CustomerTokensDto_offseter_address(ctx, field)
+			case "abi":
+				return ec.fieldContext_CustomerTokensDto_abi(ctx, field)
+			case "image":
+				return ec.fieldContext_CustomerTokensDto_image(ctx, field)
+			case "tokens":
+				return ec.fieldContext_CustomerTokensDto_tokens(ctx, field)
+			case "asset_area":
+				return ec.fieldContext_CustomerTokensDto_asset_area(ctx, field)
+			case "asset_carbon_unit":
+				return ec.fieldContext_CustomerTokensDto_asset_carbon_unit(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type CustomerTokensDto", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _GlobalDeposited_total(ctx context.Context, field graphql.CollectedField, obj *GlobalDeposited) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_GlobalDeposited_total(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Total, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_GlobalDeposited_total(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "GlobalDeposited",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Token_token_id(ctx context.Context, field graphql.CollectedField, obj *Token) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Token_token_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -520,7 +763,7 @@ func (ec *executionContext) fieldContext_Token_token_id(_ context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Token_value(ctx context.Context, field graphql.CollectedField, obj *schema.Token) (ret graphql.Marshaler) {
+func (ec *executionContext) _Token_value(ctx context.Context, field graphql.CollectedField, obj *Token) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Token_value(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -543,9 +786,9 @@ func (ec *executionContext) _Token_value(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Token_value(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -573,89 +816,148 @@ func (ec *executionContext) fieldContext_Token_value(_ context.Context, field gr
 
 // region    **************************** object.gotpl ****************************
 
-var customerTokensOutputImplementors = []string{"CustomerTokensOutput"}
+var customerTokensDtoImplementors = []string{"CustomerTokensDto"}
 
-func (ec *executionContext) _CustomerTokensOutput(ctx context.Context, sel ast.SelectionSet, obj *schema.CustomerTokensDTO) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, customerTokensOutputImplementors)
+func (ec *executionContext) _CustomerTokensDto(ctx context.Context, sel ast.SelectionSet, obj *CustomerTokensDto) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, customerTokensDtoImplementors)
 
 	out := graphql.NewFieldSet(fields)
 	deferred := make(map[string]*graphql.FieldSet)
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("CustomerTokensOutput")
+			out.Values[i] = graphql.MarshalString("CustomerTokensDto")
 		case "id":
-			out.Values[i] = ec._CustomerTokensOutput_id(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
 			}
 		case "name":
-			out.Values[i] = ec._CustomerTokensOutput_name(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_name(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
 			}
 		case "slot":
-			out.Values[i] = ec._CustomerTokensOutput_slot(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_slot(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
 			}
 		case "address":
-			out.Values[i] = ec._CustomerTokensOutput_address(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_address(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
 			}
 		case "minter_address":
-			out.Values[i] = ec._CustomerTokensOutput_minter_address(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_minter_address(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
 			}
 		case "yielder_address":
-			out.Values[i] = ec._CustomerTokensOutput_yielder_address(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_yielder_address(ctx, field, obj)
 		case "offseter_address":
-			out.Values[i] = ec._CustomerTokensOutput_offseter_address(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_offseter_address(ctx, field, obj)
 		case "abi":
-			field := field
-
-			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._CustomerTokensOutput_abi(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&fs.Invalids, 1)
-				}
-				return res
-			}
-
-			if field.Deferrable != nil {
-				dfs, ok := deferred[field.Deferrable.Label]
-				di := 0
-				if ok {
-					dfs.AddField(field)
-					di = len(dfs.Values) - 1
-				} else {
-					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
-					deferred[field.Deferrable.Label] = dfs
-				}
-				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
-					return innerFunc(ctx, dfs)
-				})
-
-				// don't run the out.Concurrently() call below
-				out.Values[i] = graphql.Null
-				continue
-			}
-
-			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
-		case "image":
-			out.Values[i] = ec._CustomerTokensOutput_image(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_abi(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&out.Invalids, 1)
+				out.Invalids++
+			}
+		case "image":
+			out.Values[i] = ec._CustomerTokensDto_image(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
 			}
 		case "tokens":
-			out.Values[i] = ec._CustomerTokensOutput_tokens(ctx, field, obj)
+			out.Values[i] = ec._CustomerTokensDto_tokens(ctx, field, obj)
+		case "asset_area":
+			out.Values[i] = ec._CustomerTokensDto_asset_area(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "asset_carbon_unit":
+			out.Values[i] = ec._CustomerTokensDto_asset_carbon_unit(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var customerTokensResponseImplementors = []string{"CustomerTokensResponse"}
+
+func (ec *executionContext) _CustomerTokensResponse(ctx context.Context, sel ast.SelectionSet, obj *CustomerTokensResponse) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, customerTokensResponseImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("CustomerTokensResponse")
+		case "global":
+			out.Values[i] = ec._CustomerTokensResponse_global(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "projects":
+			out.Values[i] = ec._CustomerTokensResponse_projects(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var globalDepositedImplementors = []string{"GlobalDeposited"}
+
+func (ec *executionContext) _GlobalDeposited(ctx context.Context, sel ast.SelectionSet, obj *GlobalDeposited) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, globalDepositedImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("GlobalDeposited")
+		case "total":
+			out.Values[i] = ec._GlobalDeposited_total(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -681,7 +983,7 @@ func (ec *executionContext) _CustomerTokensOutput(ctx context.Context, sel ast.S
 
 var tokenImplementors = []string{"Token"}
 
-func (ec *executionContext) _Token(ctx context.Context, sel ast.SelectionSet, obj *schema.Token) graphql.Marshaler {
+func (ec *executionContext) _Token(ctx context.Context, sel ast.SelectionSet, obj *Token) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, tokenImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -724,17 +1026,41 @@ func (ec *executionContext) _Token(ctx context.Context, sel ast.SelectionSet, ob
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNCustomerTokensOutput2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐCustomerTokensDTO(ctx context.Context, sel ast.SelectionSet, v *schema.CustomerTokensDTO) graphql.Marshaler {
+func (ec *executionContext) marshalNCustomerTokensDto2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensDto(ctx context.Context, sel ast.SelectionSet, v *CustomerTokensDto) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
 		}
 		return graphql.Null
 	}
-	return ec._CustomerTokensOutput(ctx, sel, v)
+	return ec._CustomerTokensDto(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCustomerTokensOutput2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐCustomerTokensDTOᚄ(ctx context.Context, sel ast.SelectionSet, v []*schema.CustomerTokensDTO) graphql.Marshaler {
+func (ec *executionContext) marshalNCustomerTokensResponse2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensResponse(ctx context.Context, sel ast.SelectionSet, v CustomerTokensResponse) graphql.Marshaler {
+	return ec._CustomerTokensResponse(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNCustomerTokensResponse2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensResponse(ctx context.Context, sel ast.SelectionSet, v *CustomerTokensResponse) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._CustomerTokensResponse(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNGlobalDeposited2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐGlobalDeposited(ctx context.Context, sel ast.SelectionSet, v *GlobalDeposited) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._GlobalDeposited(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOCustomerTokensDto2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensDtoᚄ(ctx context.Context, sel ast.SelectionSet, v []*CustomerTokensDto) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -761,7 +1087,7 @@ func (ec *executionContext) marshalOCustomerTokensOutput2ᚕᚖgithubᚗcomᚋca
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNCustomerTokensOutput2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐCustomerTokensDTO(ctx, sel, v[i])
+			ret[i] = ec.marshalNCustomerTokensDto2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensDto(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -781,11 +1107,7 @@ func (ec *executionContext) marshalOCustomerTokensOutput2ᚕᚖgithubᚗcomᚋca
 	return ret
 }
 
-func (ec *executionContext) marshalOToken2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐToken(ctx context.Context, sel ast.SelectionSet, v schema.Token) graphql.Marshaler {
-	return ec._Token(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalOToken2ᚕgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐToken(ctx context.Context, sel ast.SelectionSet, v []schema.Token) graphql.Marshaler {
+func (ec *executionContext) marshalOToken2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐToken(ctx context.Context, sel ast.SelectionSet, v []*Token) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -812,7 +1134,7 @@ func (ec *executionContext) marshalOToken2ᚕgithubᚗcomᚋcarbonableᚋcarbona
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOToken2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐToken(ctx, sel, v[i])
+			ret[i] = ec.marshalOToken2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐToken(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -824,6 +1146,13 @@ func (ec *executionContext) marshalOToken2ᚕgithubᚗcomᚋcarbonableᚋcarbona
 	wg.Wait()
 
 	return ret
+}
+
+func (ec *executionContext) marshalOToken2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐToken(ctx context.Context, sel ast.SelectionSet, v *Token) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Token(ctx, sel, v)
 }
 
 // endregion ***************************** type.gotpl *****************************

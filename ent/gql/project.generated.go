@@ -9,10 +9,16 @@ import (
 	"sync/atomic"
 
 	"github.com/99designs/gqlgen/graphql"
+	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
 // region    ************************** generated!.gotpl **************************
+
+type ProjectAbiResolver interface {
+	Project(ctx context.Context, obj *schema.ProjectAbi) (string, error)
+	Minter(ctx context.Context, obj *schema.ProjectAbi) (string, error)
+}
 
 // endregion ************************** generated!.gotpl **************************
 
@@ -26,8 +32,8 @@ import (
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Abi_project(ctx context.Context, field graphql.CollectedField, obj *Abi) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Abi_project(ctx, field)
+func (ec *executionContext) _ProjectAbi_project(ctx context.Context, field graphql.CollectedField, obj *schema.ProjectAbi) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ProjectAbi_project(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -40,26 +46,29 @@ func (ec *executionContext) _Abi_project(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Project, nil
+		return ec.resolvers.ProjectAbi().Project(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Abi_project(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ProjectAbi_project(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "Abi",
+		Object:     "ProjectAbi",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
 		},
@@ -67,8 +76,8 @@ func (ec *executionContext) fieldContext_Abi_project(_ context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _Abi_minter(ctx context.Context, field graphql.CollectedField, obj *Abi) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Abi_minter(ctx, field)
+func (ec *executionContext) _ProjectAbi_minter(ctx context.Context, field graphql.CollectedField, obj *schema.ProjectAbi) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ProjectAbi_minter(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -81,26 +90,29 @@ func (ec *executionContext) _Abi_minter(ctx context.Context, field graphql.Colle
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Minter, nil
+		return ec.resolvers.ProjectAbi().Minter(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Abi_minter(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ProjectAbi_minter(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "Abi",
+		Object:     "ProjectAbi",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
 		},
@@ -120,21 +132,89 @@ func (ec *executionContext) fieldContext_Abi_minter(_ context.Context, field gra
 
 // region    **************************** object.gotpl ****************************
 
-var abiImplementors = []string{"Abi"}
+var projectAbiImplementors = []string{"ProjectAbi"}
 
-func (ec *executionContext) _Abi(ctx context.Context, sel ast.SelectionSet, obj *Abi) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, abiImplementors)
+func (ec *executionContext) _ProjectAbi(ctx context.Context, sel ast.SelectionSet, obj *schema.ProjectAbi) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, projectAbiImplementors)
 
 	out := graphql.NewFieldSet(fields)
 	deferred := make(map[string]*graphql.FieldSet)
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("Abi")
+			out.Values[i] = graphql.MarshalString("ProjectAbi")
 		case "project":
-			out.Values[i] = ec._Abi_project(ctx, field, obj)
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._ProjectAbi_project(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		case "minter":
-			out.Values[i] = ec._Abi_minter(ctx, field, obj)
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._ProjectAbi_minter(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -162,18 +242,18 @@ func (ec *executionContext) _Abi(ctx context.Context, sel ast.SelectionSet, obj 
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx context.Context, sel ast.SelectionSet, v Abi) graphql.Marshaler {
-	return ec._Abi(ctx, sel, &v)
+func (ec *executionContext) marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v schema.ProjectAbi) graphql.Marshaler {
+	return ec._ProjectAbi(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx context.Context, sel ast.SelectionSet, v *Abi) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v *schema.ProjectAbi) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
 		}
 		return graphql.Null
 	}
-	return ec._Abi(ctx, sel, v)
+	return ec._ProjectAbi(ctx, sel, v)
 }
 
 // endregion ***************************** type.gotpl *****************************

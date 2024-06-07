@@ -20,13 +20,10 @@ import (
 
 // region    ************************** generated!.gotpl **************************
 
-type ProjectResolver interface {
-	Abi(ctx context.Context, obj *ent.Project) (*Abi, error)
-}
 type QueryResolver interface {
 	Node(ctx context.Context, id string) (ent.Noder, error)
 	Nodes(ctx context.Context, ids []string) ([]ent.Noder, error)
-	CustomerTokens(ctx context.Context, address string) ([]*schema.CustomerTokensDTO, error)
+	CustomerTokens(ctx context.Context, address string) (*CustomerTokensResponse, error)
 }
 
 // endregion ************************** generated!.gotpl **************************
@@ -832,7 +829,7 @@ func (ec *executionContext) _Project_abi(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Project().Abi(rctx, obj)
+		return obj.Abi, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -844,25 +841,25 @@ func (ec *executionContext) _Project_abi(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Abi)
+	res := resTmp.(schema.ProjectAbi)
 	fc.Result = res
-	return ec.marshalNAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐAbi(ctx, field.Selections, res)
+	return ec.marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Project_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Project",
 		Field:      field,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "project":
-				return ec.fieldContext_Abi_project(ctx, field)
+				return ec.fieldContext_ProjectAbi_project(ctx, field)
 			case "minter":
-				return ec.fieldContext_Abi_minter(ctx, field)
+				return ec.fieldContext_ProjectAbi_minter(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type Abi", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type ProjectAbi", field.Name)
 		},
 	}
 	return fc, nil
@@ -1179,11 +1176,14 @@ func (ec *executionContext) _Query_customerTokens(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.([]*schema.CustomerTokensDTO)
+	res := resTmp.(*CustomerTokensResponse)
 	fc.Result = res
-	return ec.marshalOCustomerTokensOutput2ᚕᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐCustomerTokensDTOᚄ(ctx, field.Selections, res)
+	return ec.marshalNCustomerTokensResponse2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋgqlᚐCustomerTokensResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_customerTokens(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1194,28 +1194,12 @@ func (ec *executionContext) fieldContext_Query_customerTokens(ctx context.Contex
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
-			case "id":
-				return ec.fieldContext_CustomerTokensOutput_id(ctx, field)
-			case "name":
-				return ec.fieldContext_CustomerTokensOutput_name(ctx, field)
-			case "slot":
-				return ec.fieldContext_CustomerTokensOutput_slot(ctx, field)
-			case "address":
-				return ec.fieldContext_CustomerTokensOutput_address(ctx, field)
-			case "minter_address":
-				return ec.fieldContext_CustomerTokensOutput_minter_address(ctx, field)
-			case "yielder_address":
-				return ec.fieldContext_CustomerTokensOutput_yielder_address(ctx, field)
-			case "offseter_address":
-				return ec.fieldContext_CustomerTokensOutput_offseter_address(ctx, field)
-			case "abi":
-				return ec.fieldContext_CustomerTokensOutput_abi(ctx, field)
-			case "image":
-				return ec.fieldContext_CustomerTokensOutput_image(ctx, field)
-			case "tokens":
-				return ec.fieldContext_CustomerTokensOutput_tokens(ctx, field)
+			case "global":
+				return ec.fieldContext_CustomerTokensResponse_global(ctx, field)
+			case "projects":
+				return ec.fieldContext_CustomerTokensResponse_projects(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type CustomerTokensOutput", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type CustomerTokensResponse", field.Name)
 		},
 	}
 	defer func() {
@@ -1574,41 +1558,10 @@ func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, 
 				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "abi":
-			field := field
-
-			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Project_abi(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&fs.Invalids, 1)
-				}
-				return res
+			out.Values[i] = ec._Project_abi(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&out.Invalids, 1)
 			}
-
-			if field.Deferrable != nil {
-				dfs, ok := deferred[field.Deferrable.Label]
-				di := 0
-				if ok {
-					dfs.AddField(field)
-					di = len(dfs.Values) - 1
-				} else {
-					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
-					deferred[field.Deferrable.Label] = dfs
-				}
-				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
-					return innerFunc(ctx, dfs)
-				})
-
-				// don't run the out.Concurrently() call below
-				out.Values[i] = graphql.Null
-				continue
-			}
-
-			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		case "image":
 			out.Values[i] = ec._Project_image(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -1737,13 +1690,16 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		case "customerTokens":
 			field := field
 
-			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
 				defer func() {
 					if r := recover(); r != nil {
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
 				res = ec._Query_customerTokens(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
 				return res
 			}
 

@@ -11,7 +11,7 @@ import (
 	"github.com/NethermindEth/starknet.go/rpc"
 	"github.com/carbonable-labs/indexer.sdk/sdk"
 	"github.com/carbonable/carbonable-portfolio-backend/config"
-	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/sync"
 	"github.com/carbonable/carbonable-portfolio-backend/internal/utils"
 
 	ethrpc "github.com/ethereum/go-ethereum/rpc"
@@ -33,7 +33,7 @@ func main() {
 	}
 
 	// Update base project data
-	err = model.Synchronize(ctx, db, rpcClient)
+	err = sync.Synchronize(ctx, db, rpcClient)
 	if err != nil {
 		slog.Error("failed to sync contracts", err)
 	}

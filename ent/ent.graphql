@@ -65,7 +65,7 @@ type Project implements Node {
   slot: Int!
   minterAddress: String!
   name: String!
-  abi: Abi!
+  abi: ProjectAbi!
   image: String!
   yielderAddress: String
   offseterAddress: String

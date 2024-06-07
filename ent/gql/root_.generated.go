@@ -32,20 +32,16 @@ type Config struct {
 }
 
 type ResolverRoot interface {
-	CustomerTokensOutput() CustomerTokensOutputResolver
-	Project() ProjectResolver
+	DisplayableValue() DisplayableValueResolver
+	ProjectAbi() ProjectAbiResolver
 	Query() QueryResolver
+	ValueItem() ValueItemResolver
 }
 
 type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
-	Abi struct {
-		Minter  func(childComplexity int) int
-		Project func(childComplexity int) int
-	}
-
 	CustomerTokens struct {
 		Address        func(childComplexity int) int
 		ID             func(childComplexity int) int
@@ -56,9 +52,11 @@ type ComplexityRoot struct {
 		Value          func(childComplexity int) int
 	}
 
-	CustomerTokensOutput struct {
+	CustomerTokensDto struct {
 		Abi             func(childComplexity int) int
 		Address         func(childComplexity int) int
+		AssetArea       func(childComplexity int) int
+		AssetCarbonUnit func(childComplexity int) int
 		ID              func(childComplexity int) int
 		Image           func(childComplexity int) int
 		MinterAddress   func(childComplexity int) int
@@ -67,6 +65,21 @@ type ComplexityRoot struct {
 		Slot            func(childComplexity int) int
 		Tokens          func(childComplexity int) int
 		YielderAddress  func(childComplexity int) int
+	}
+
+	CustomerTokensResponse struct {
+		Global   func(childComplexity int) int
+		Projects func(childComplexity int) int
+	}
+
+	DisplayableValue struct {
+		DisplayableValue func(childComplexity int) int
+		Type             func(childComplexity int) int
+		Value            func(childComplexity int) int
+	}
+
+	GlobalDeposited struct {
+		Total func(childComplexity int) int
 	}
 
 	PageInfo struct {
@@ -89,6 +102,11 @@ type ComplexityRoot struct {
 		YielderAddress  func(childComplexity int) int
 	}
 
+	ProjectAbi struct {
+		Minter  func(childComplexity int) int
+		Project func(childComplexity int) int
+	}
+
 	Query struct {
 		CustomerTokens func(childComplexity int, address string) int
 		Node           func(childComplexity int, id string) int
@@ -98,6 +116,12 @@ type ComplexityRoot struct {
 	Token struct {
 		TokenID func(childComplexity int) int
 		Value   func(childComplexity int) int
+	}
+
+	ValueItem struct {
+		Decimals func(childComplexity int) int
+		Symbol   func(childComplexity int) int
+		Value    func(childComplexity int) int
 	}
 }
 
@@ -119,20 +143,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e, 0, 0, nil}
 	_ = ec
 	switch typeName + "." + field {
-
-	case "Abi.minter":
-		if e.complexity.Abi.Minter == nil {
-			break
-		}
-
-		return e.complexity.Abi.Minter(childComplexity), true
-
-	case "Abi.project":
-		if e.complexity.Abi.Project == nil {
-			break
-		}
-
-		return e.complexity.Abi.Project(childComplexity), true
 
 	case "CustomerTokens.address":
 		if e.complexity.CustomerTokens.Address == nil {
@@ -183,75 +193,131 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.CustomerTokens.Value(childComplexity), true
 
-	case "CustomerTokensOutput.abi":
-		if e.complexity.CustomerTokensOutput.Abi == nil {
+	case "CustomerTokensDto.abi":
+		if e.complexity.CustomerTokensDto.Abi == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Abi(childComplexity), true
+		return e.complexity.CustomerTokensDto.Abi(childComplexity), true
 
-	case "CustomerTokensOutput.address":
-		if e.complexity.CustomerTokensOutput.Address == nil {
+	case "CustomerTokensDto.address":
+		if e.complexity.CustomerTokensDto.Address == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Address(childComplexity), true
+		return e.complexity.CustomerTokensDto.Address(childComplexity), true
 
-	case "CustomerTokensOutput.id":
-		if e.complexity.CustomerTokensOutput.ID == nil {
+	case "CustomerTokensDto.asset_area":
+		if e.complexity.CustomerTokensDto.AssetArea == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.ID(childComplexity), true
+		return e.complexity.CustomerTokensDto.AssetArea(childComplexity), true
 
-	case "CustomerTokensOutput.image":
-		if e.complexity.CustomerTokensOutput.Image == nil {
+	case "CustomerTokensDto.asset_carbon_unit":
+		if e.complexity.CustomerTokensDto.AssetCarbonUnit == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Image(childComplexity), true
+		return e.complexity.CustomerTokensDto.AssetCarbonUnit(childComplexity), true
 
-	case "CustomerTokensOutput.minter_address":
-		if e.complexity.CustomerTokensOutput.MinterAddress == nil {
+	case "CustomerTokensDto.id":
+		if e.complexity.CustomerTokensDto.ID == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.MinterAddress(childComplexity), true
+		return e.complexity.CustomerTokensDto.ID(childComplexity), true
 
-	case "CustomerTokensOutput.name":
-		if e.complexity.CustomerTokensOutput.Name == nil {
+	case "CustomerTokensDto.image":
+		if e.complexity.CustomerTokensDto.Image == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Name(childComplexity), true
+		return e.complexity.CustomerTokensDto.Image(childComplexity), true
 
-	case "CustomerTokensOutput.offseter_address":
-		if e.complexity.CustomerTokensOutput.OffseterAddress == nil {
+	case "CustomerTokensDto.minter_address":
+		if e.complexity.CustomerTokensDto.MinterAddress == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.OffseterAddress(childComplexity), true
+		return e.complexity.CustomerTokensDto.MinterAddress(childComplexity), true
 
-	case "CustomerTokensOutput.slot":
-		if e.complexity.CustomerTokensOutput.Slot == nil {
+	case "CustomerTokensDto.name":
+		if e.complexity.CustomerTokensDto.Name == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Slot(childComplexity), true
+		return e.complexity.CustomerTokensDto.Name(childComplexity), true
 
-	case "CustomerTokensOutput.tokens":
-		if e.complexity.CustomerTokensOutput.Tokens == nil {
+	case "CustomerTokensDto.offseter_address":
+		if e.complexity.CustomerTokensDto.OffseterAddress == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.Tokens(childComplexity), true
+		return e.complexity.CustomerTokensDto.OffseterAddress(childComplexity), true
 
-	case "CustomerTokensOutput.yielder_address":
-		if e.complexity.CustomerTokensOutput.YielderAddress == nil {
+	case "CustomerTokensDto.slot":
+		if e.complexity.CustomerTokensDto.Slot == nil {
 			break
 		}
 
-		return e.complexity.CustomerTokensOutput.YielderAddress(childComplexity), true
+		return e.complexity.CustomerTokensDto.Slot(childComplexity), true
+
+	case "CustomerTokensDto.tokens":
+		if e.complexity.CustomerTokensDto.Tokens == nil {
+			break
+		}
+
+		return e.complexity.CustomerTokensDto.Tokens(childComplexity), true
+
+	case "CustomerTokensDto.yielder_address":
+		if e.complexity.CustomerTokensDto.YielderAddress == nil {
+			break
+		}
+
+		return e.complexity.CustomerTokensDto.YielderAddress(childComplexity), true
+
+	case "CustomerTokensResponse.global":
+		if e.complexity.CustomerTokensResponse.Global == nil {
+			break
+		}
+
+		return e.complexity.CustomerTokensResponse.Global(childComplexity), true
+
+	case "CustomerTokensResponse.projects":
+		if e.complexity.CustomerTokensResponse.Projects == nil {
+			break
+		}
+
+		return e.complexity.CustomerTokensResponse.Projects(childComplexity), true
+
+	case "DisplayableValue.displayable_value":
+		if e.complexity.DisplayableValue.DisplayableValue == nil {
+			break
+		}
+
+		return e.complexity.DisplayableValue.DisplayableValue(childComplexity), true
+
+	case "DisplayableValue.type":
+		if e.complexity.DisplayableValue.Type == nil {
+			break
+		}
+
+		return e.complexity.DisplayableValue.Type(childComplexity), true
+
+	case "DisplayableValue.value":
+		if e.complexity.DisplayableValue.Value == nil {
+			break
+		}
+
+		return e.complexity.DisplayableValue.Value(childComplexity), true
+
+	case "GlobalDeposited.total":
+		if e.complexity.GlobalDeposited.Total == nil {
+			break
+		}
+
+		return e.complexity.GlobalDeposited.Total(childComplexity), true
 
 	case "PageInfo.endCursor":
 		if e.complexity.PageInfo.EndCursor == nil {
@@ -351,6 +417,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Project.YielderAddress(childComplexity), true
 
+	case "ProjectAbi.minter":
+		if e.complexity.ProjectAbi.Minter == nil {
+			break
+		}
+
+		return e.complexity.ProjectAbi.Minter(childComplexity), true
+
+	case "ProjectAbi.project":
+		if e.complexity.ProjectAbi.Project == nil {
+			break
+		}
+
+		return e.complexity.ProjectAbi.Project(childComplexity), true
+
 	case "Query.customerTokens":
 		if e.complexity.Query.CustomerTokens == nil {
 			break
@@ -400,6 +480,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Token.Value(childComplexity), true
+
+	case "ValueItem.decimals":
+		if e.complexity.ValueItem.Decimals == nil {
+			break
+		}
+
+		return e.complexity.ValueItem.Decimals(childComplexity), true
+
+	case "ValueItem.symbol":
+		if e.complexity.ValueItem.Symbol == nil {
+			break
+		}
+
+		return e.complexity.ValueItem.Symbol(childComplexity), true
+
+	case "ValueItem.value":
+		if e.complexity.ValueItem.Value == nil {
+			break
+		}
+
+		return e.complexity.ValueItem.Value(childComplexity), true
 
 	}
 	return 0, false
@@ -495,7 +596,11 @@ var sources = []*ast.Source{
   value: String
 }
 
-type CustomerTokensOutput {
+type GlobalDeposited {
+  total: String!
+}
+
+type CustomerTokensDto {
   id: ID!
   name: String!
   slot: Int!
@@ -503,21 +608,23 @@ type CustomerTokensOutput {
   minter_address: String!
   yielder_address: String
   offseter_address: String
-  abi: Abi!
+  abi: ProjectAbi!
   image: String!
   tokens: [Token]
+  asset_area: String!
+  asset_carbon_unit: String!
+}
+
+type CustomerTokensResponse {
+  global: GlobalDeposited!
+  projects: [CustomerTokensDto!]
 }
 
 extend type Query {
   """
   The list of tokens per project for an address
   """
-  customerTokens(address: String!): [CustomerTokensOutput!]
-}
-`, BuiltIn: false},
-	{Name: "../project.graphql", Input: `type Abi {
-  project: String
-  minter: String
+  customerTokens(address: String!): CustomerTokensResponse!
 }
 `, BuiltIn: false},
 	{Name: "../ent.graphql", Input: `directive @goField(forceResolver: Boolean, name: String, omittable: Boolean) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
@@ -587,7 +694,7 @@ type Project implements Node {
   slot: Int!
   minterAddress: String!
   name: String!
-  abi: Abi!
+  abi: ProjectAbi!
   image: String!
   yielderAddress: String
   offseterAddress: String
@@ -612,6 +719,23 @@ type Query {
     """
     ids: [ID!]!
   ): [Node]!
+}
+`, BuiltIn: false},
+	{Name: "../models.graphql", Input: `type ValueItem {
+  symbol: String
+  decimals: Int!
+  value: String!
+}
+
+type DisplayableValue {
+  type: String!
+  value: ValueItem!
+  displayable_value: String!
+}
+`, BuiltIn: false},
+	{Name: "../project.graphql", Input: `type ProjectAbi {
+  project: String!
+  minter: String!
 }
 `, BuiltIn: false},
 }

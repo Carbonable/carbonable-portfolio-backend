@@ -1,6 +1,7 @@
 package model
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
 	"math/big"
@@ -8,20 +9,25 @@ import (
 	"github.com/NethermindEth/juno/core/felt"
 )
 
-type SlotUri struct {
-	Name           string      `json:"name"`
-	Description    string      `json:"description"`
-	Image          string      `json:"image"`
-	ExternalUrl    string      `json:"external_url"`
-	BannerImageUrl string      `json:"banner_image_url"`
-	YoutubeUrl     string      `json:"youtube_url"`
-	Attributes     []Attribute `json:"attributes"`
-}
-
-type Attribute struct {
-	TraitType string      `json:"trait_type"`
-	Value     interface{} `json:"value"`
-}
+type (
+	SlotUri struct {
+		Name           string      `json:"name"`
+		Description    string      `json:"description"`
+		Image          string      `json:"image"`
+		ExternalUrl    string      `json:"external_url"`
+		BannerImageUrl string      `json:"banner_image_url"`
+		YoutubeUrl     string      `json:"youtube_url"`
+		Attributes     []Attribute `json:"attributes"`
+	}
+	Attribute struct {
+		TraitType string      `json:"trait_type"`
+		Value     interface{} `json:"value"`
+	}
+	ProjectAbi struct {
+		Project json.RawMessage `json:"project"`
+		Minter  json.RawMessage `json:"minter"`
+	}
+)
 
 type DisplayableValueType string
 
@@ -32,6 +38,7 @@ const (
 )
 
 type ValueItem struct {
+	Symbol   string    `json:"symbol,omitempty"`
 	Value    felt.Felt `json:"value"`
 	Decimals int       `json:"value_decimals"`
 }

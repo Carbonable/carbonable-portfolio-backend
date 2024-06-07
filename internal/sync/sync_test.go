@@ -1,4 +1,4 @@
-package model
+package sync
 
 import (
 	"context"
