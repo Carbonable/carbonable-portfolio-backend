@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"entgo.io/contrib/entgql"
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
@@ -21,7 +22,7 @@ func (Project) Fields() []ent.Field {
 		field.String("minter_address"),
 		field.String("name"),
 		field.JSON("abi", model.ProjectAbi{}),
-		field.JSON("slot_uri", model.SlotUri{}),
+		field.JSON("slot_uri", model.SlotUri{}).Annotations(entgql.Skip()),
 		field.Text("image"),
 		field.String("yielder_address").Optional(),
 		field.String("offseter_address").Optional(),

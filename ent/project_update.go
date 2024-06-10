@@ -13,7 +13,7 @@ import (
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/predicate"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 // ProjectUpdate is the builder for updating Project entities.
@@ -93,15 +93,29 @@ func (pu *ProjectUpdate) SetNillableName(s *string) *ProjectUpdate {
 }
 
 // SetAbi sets the "abi" field.
-func (pu *ProjectUpdate) SetAbi(sa schema.ProjectAbi) *ProjectUpdate {
-	pu.mutation.SetAbi(sa)
+func (pu *ProjectUpdate) SetAbi(ma model.ProjectAbi) *ProjectUpdate {
+	pu.mutation.SetAbi(ma)
 	return pu
 }
 
 // SetNillableAbi sets the "abi" field if the given value is not nil.
-func (pu *ProjectUpdate) SetNillableAbi(sa *schema.ProjectAbi) *ProjectUpdate {
-	if sa != nil {
-		pu.SetAbi(*sa)
+func (pu *ProjectUpdate) SetNillableAbi(ma *model.ProjectAbi) *ProjectUpdate {
+	if ma != nil {
+		pu.SetAbi(*ma)
+	}
+	return pu
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (pu *ProjectUpdate) SetSlotURI(mu model.SlotUri) *ProjectUpdate {
+	pu.mutation.SetSlotURI(mu)
+	return pu
+}
+
+// SetNillableSlotURI sets the "slot_uri" field if the given value is not nil.
+func (pu *ProjectUpdate) SetNillableSlotURI(mu *model.SlotUri) *ProjectUpdate {
+	if mu != nil {
+		pu.SetSlotURI(*mu)
 	}
 	return pu
 }
@@ -255,6 +269,9 @@ func (pu *ProjectUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := pu.mutation.Abi(); ok {
 		_spec.SetField(project.FieldAbi, field.TypeJSON, value)
 	}
+	if value, ok := pu.mutation.SlotURI(); ok {
+		_spec.SetField(project.FieldSlotURI, field.TypeJSON, value)
+	}
 	if value, ok := pu.mutation.Image(); ok {
 		_spec.SetField(project.FieldImage, field.TypeString, value)
 	}
@@ -399,15 +416,29 @@ func (puo *ProjectUpdateOne) SetNillableName(s *string) *ProjectUpdateOne {
 }
 
 // SetAbi sets the "abi" field.
-func (puo *ProjectUpdateOne) SetAbi(sa schema.ProjectAbi) *ProjectUpdateOne {
-	puo.mutation.SetAbi(sa)
+func (puo *ProjectUpdateOne) SetAbi(ma model.ProjectAbi) *ProjectUpdateOne {
+	puo.mutation.SetAbi(ma)
 	return puo
 }
 
 // SetNillableAbi sets the "abi" field if the given value is not nil.
-func (puo *ProjectUpdateOne) SetNillableAbi(sa *schema.ProjectAbi) *ProjectUpdateOne {
-	if sa != nil {
-		puo.SetAbi(*sa)
+func (puo *ProjectUpdateOne) SetNillableAbi(ma *model.ProjectAbi) *ProjectUpdateOne {
+	if ma != nil {
+		puo.SetAbi(*ma)
+	}
+	return puo
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (puo *ProjectUpdateOne) SetSlotURI(mu model.SlotUri) *ProjectUpdateOne {
+	puo.mutation.SetSlotURI(mu)
+	return puo
+}
+
+// SetNillableSlotURI sets the "slot_uri" field if the given value is not nil.
+func (puo *ProjectUpdateOne) SetNillableSlotURI(mu *model.SlotUri) *ProjectUpdateOne {
+	if mu != nil {
+		puo.SetSlotURI(*mu)
 	}
 	return puo
 }
@@ -590,6 +621,9 @@ func (puo *ProjectUpdateOne) sqlSave(ctx context.Context) (_node *Project, err e
 	}
 	if value, ok := puo.mutation.Abi(); ok {
 		_spec.SetField(project.FieldAbi, field.TypeJSON, value)
+	}
+	if value, ok := puo.mutation.SlotURI(); ok {
+		_spec.SetField(project.FieldSlotURI, field.TypeJSON, value)
 	}
 	if value, ok := puo.mutation.Image(); ok {
 		_spec.SetField(project.FieldImage, field.TypeString, value)

@@ -22,6 +22,8 @@ const (
 	FieldName = "name"
 	// FieldAbi holds the string denoting the abi field in the database.
 	FieldAbi = "abi"
+	// FieldSlotURI holds the string denoting the slot_uri field in the database.
+	FieldSlotURI = "slot_uri"
 	// FieldImage holds the string denoting the image field in the database.
 	FieldImage = "image"
 	// FieldYielderAddress holds the string denoting the yielder_address field in the database.
@@ -47,6 +49,7 @@ var Columns = []string{
 	FieldMinterAddress,
 	FieldName,
 	FieldAbi,
+	FieldSlotURI,
 	FieldImage,
 	FieldYielderAddress,
 	FieldOffseterAddress,

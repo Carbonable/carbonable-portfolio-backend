@@ -14,7 +14,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/carbonable/carbonable-portfolio-backend/ent"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
@@ -841,9 +841,9 @@ func (ec *executionContext) _Project_abi(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(schema.ProjectAbi)
+	res := resTmp.(model.ProjectAbi)
 	fc.Result = res
-	return ec.marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx, field.Selections, res)
+	return ec.marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋinternalᚋmodelᚐProjectAbi(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Project_abi(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {

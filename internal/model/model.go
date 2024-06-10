@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"math/big"
+	"strings"
 
 	"github.com/NethermindEth/juno/core/felt"
 )
@@ -20,14 +21,35 @@ type (
 		Attributes     []Attribute `json:"attributes"`
 	}
 	Attribute struct {
-		TraitType string      `json:"trait_type"`
 		Value     interface{} `json:"value"`
+		TraitType string      `json:"trait_type"`
 	}
 	ProjectAbi struct {
 		Project json.RawMessage `json:"project"`
 		Minter  json.RawMessage `json:"minter"`
 	}
 )
+
+func (s SlotUri) AttributeItem(tt string) string {
+	for _, attr := range s.Attributes {
+		if strings.HasPrefix(attr.TraitType, tt) {
+			v := attr.Value
+			switch attr.Value.(type) {
+			case string:
+				return fmt.Sprintf("%s", v)
+			case float64:
+				u, ok := v.(uint64)
+				if !ok {
+					return fmt.Sprintf("%.0f", v)
+				}
+				return fmt.Sprintf("%d", u)
+			default:
+				return fmt.Sprintf("%v", v)
+			}
+		}
+	}
+	return ""
+}
 
 type DisplayableValueType string
 

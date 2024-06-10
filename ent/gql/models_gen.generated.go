@@ -3,22 +3,22 @@
 package gql
 
 import (
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 type CustomerTokensDto struct {
-	ID              string             `json:"id"`
-	Name            string             `json:"name"`
-	Slot            int                `json:"slot"`
-	Address         string             `json:"address"`
-	MinterAddress   string             `json:"minter_address"`
-	YielderAddress  *string            `json:"yielder_address,omitempty"`
-	OffseterAddress *string            `json:"offseter_address,omitempty"`
-	Abi             *schema.ProjectAbi `json:"abi"`
-	Image           string             `json:"image"`
-	Tokens          []*Token           `json:"tokens,omitempty"`
-	AssetArea       string             `json:"asset_area"`
-	AssetCarbonUnit string             `json:"asset_carbon_unit"`
+	ID              string            `json:"id"`
+	Name            string            `json:"name"`
+	Slot            int               `json:"slot"`
+	Address         string            `json:"address"`
+	MinterAddress   string            `json:"minter_address"`
+	YielderAddress  *string           `json:"yielder_address,omitempty"`
+	OffseterAddress *string           `json:"offseter_address,omitempty"`
+	Abi             *model.ProjectAbi `json:"abi"`
+	Image           string            `json:"image"`
+	Tokens          []*Token          `json:"tokens,omitempty"`
+	AssetArea       string            `json:"asset_area"`
+	AssetCarbonUnit string            `json:"asset_carbon_unit"`
 }
 
 type CustomerTokensResponse struct {

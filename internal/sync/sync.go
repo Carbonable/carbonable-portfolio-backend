@@ -14,7 +14,7 @@ import (
 	"github.com/carbonable-labs/indexer.sdk/sdk"
 	"github.com/carbonable/carbonable-portfolio-backend/config"
 	"github.com/carbonable/carbonable-portfolio-backend/ent"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 // Sync contracts with onchain data
@@ -75,10 +75,11 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 		SetImage(slotUri.Image).
 		SetSlot(int(i)).
 		SetMinterAddress(minterAddr).
-		SetAbi(schema.ProjectAbi{
+		SetAbi(model.ProjectAbi{
 			Project: abi,
 			Minter:  minterAbi,
 		}).
+		SetSlotURI(slotUri).
 		OnConflict(sql.ConflictColumns("address", "slot")).
 		UpdateNewValues().
 		Exec(ctx)
@@ -89,8 +90,8 @@ func syncProject(ctx context.Context, wg *sync.WaitGroup, db *ent.Client, rpc rp
 }
 
 // Get sloturi from contract
-func getSlotUri(ctx context.Context, rpc rpc.RpcProvider, c sdk.Contract, slot *felt.Felt) (SlotUri, error) {
-	var slotUri SlotUri
+func getSlotUri(ctx context.Context, rpc rpc.RpcProvider, c sdk.Contract, slot *felt.Felt) (model.SlotUri, error) {
+	var slotUri model.SlotUri
 	uri, err := c.Call(ctx, rpc, "slot_uri", slot, &felt.Zero)
 	if err != nil {
 		return slotUri, err

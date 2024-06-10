@@ -12,7 +12,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 // ProjectCreate is the builder for creating a Project entity.
@@ -48,8 +48,14 @@ func (pc *ProjectCreate) SetName(s string) *ProjectCreate {
 }
 
 // SetAbi sets the "abi" field.
-func (pc *ProjectCreate) SetAbi(sa schema.ProjectAbi) *ProjectCreate {
-	pc.mutation.SetAbi(sa)
+func (pc *ProjectCreate) SetAbi(ma model.ProjectAbi) *ProjectCreate {
+	pc.mutation.SetAbi(ma)
+	return pc
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (pc *ProjectCreate) SetSlotURI(mu model.SlotUri) *ProjectCreate {
+	pc.mutation.SetSlotURI(mu)
 	return pc
 }
 
@@ -151,6 +157,9 @@ func (pc *ProjectCreate) check() error {
 	if _, ok := pc.mutation.Abi(); !ok {
 		return &ValidationError{Name: "abi", err: errors.New(`ent: missing required field "Project.abi"`)}
 	}
+	if _, ok := pc.mutation.SlotURI(); !ok {
+		return &ValidationError{Name: "slot_uri", err: errors.New(`ent: missing required field "Project.slot_uri"`)}
+	}
 	if _, ok := pc.mutation.Image(); !ok {
 		return &ValidationError{Name: "image", err: errors.New(`ent: missing required field "Project.image"`)}
 	}
@@ -200,6 +209,10 @@ func (pc *ProjectCreate) createSpec() (*Project, *sqlgraph.CreateSpec) {
 	if value, ok := pc.mutation.Abi(); ok {
 		_spec.SetField(project.FieldAbi, field.TypeJSON, value)
 		_node.Abi = value
+	}
+	if value, ok := pc.mutation.SlotURI(); ok {
+		_spec.SetField(project.FieldSlotURI, field.TypeJSON, value)
+		_node.SlotURI = value
 	}
 	if value, ok := pc.mutation.Image(); ok {
 		_spec.SetField(project.FieldImage, field.TypeString, value)
@@ -336,7 +349,7 @@ func (u *ProjectUpsert) UpdateName() *ProjectUpsert {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsert) SetAbi(v schema.ProjectAbi) *ProjectUpsert {
+func (u *ProjectUpsert) SetAbi(v model.ProjectAbi) *ProjectUpsert {
 	u.Set(project.FieldAbi, v)
 	return u
 }
@@ -344,6 +357,18 @@ func (u *ProjectUpsert) SetAbi(v schema.ProjectAbi) *ProjectUpsert {
 // UpdateAbi sets the "abi" field to the value that was provided on create.
 func (u *ProjectUpsert) UpdateAbi() *ProjectUpsert {
 	u.SetExcluded(project.FieldAbi)
+	return u
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (u *ProjectUpsert) SetSlotURI(v model.SlotUri) *ProjectUpsert {
+	u.Set(project.FieldSlotURI, v)
+	return u
+}
+
+// UpdateSlotURI sets the "slot_uri" field to the value that was provided on create.
+func (u *ProjectUpsert) UpdateSlotURI() *ProjectUpsert {
+	u.SetExcluded(project.FieldSlotURI)
 	return u
 }
 
@@ -499,7 +524,7 @@ func (u *ProjectUpsertOne) UpdateName() *ProjectUpsertOne {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsertOne) SetAbi(v schema.ProjectAbi) *ProjectUpsertOne {
+func (u *ProjectUpsertOne) SetAbi(v model.ProjectAbi) *ProjectUpsertOne {
 	return u.Update(func(s *ProjectUpsert) {
 		s.SetAbi(v)
 	})
@@ -509,6 +534,20 @@ func (u *ProjectUpsertOne) SetAbi(v schema.ProjectAbi) *ProjectUpsertOne {
 func (u *ProjectUpsertOne) UpdateAbi() *ProjectUpsertOne {
 	return u.Update(func(s *ProjectUpsert) {
 		s.UpdateAbi()
+	})
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (u *ProjectUpsertOne) SetSlotURI(v model.SlotUri) *ProjectUpsertOne {
+	return u.Update(func(s *ProjectUpsert) {
+		s.SetSlotURI(v)
+	})
+}
+
+// UpdateSlotURI sets the "slot_uri" field to the value that was provided on create.
+func (u *ProjectUpsertOne) UpdateSlotURI() *ProjectUpsertOne {
+	return u.Update(func(s *ProjectUpsert) {
+		s.UpdateSlotURI()
 	})
 }
 
@@ -835,7 +874,7 @@ func (u *ProjectUpsertBulk) UpdateName() *ProjectUpsertBulk {
 }
 
 // SetAbi sets the "abi" field.
-func (u *ProjectUpsertBulk) SetAbi(v schema.ProjectAbi) *ProjectUpsertBulk {
+func (u *ProjectUpsertBulk) SetAbi(v model.ProjectAbi) *ProjectUpsertBulk {
 	return u.Update(func(s *ProjectUpsert) {
 		s.SetAbi(v)
 	})
@@ -845,6 +884,20 @@ func (u *ProjectUpsertBulk) SetAbi(v schema.ProjectAbi) *ProjectUpsertBulk {
 func (u *ProjectUpsertBulk) UpdateAbi() *ProjectUpsertBulk {
 	return u.Update(func(s *ProjectUpsert) {
 		s.UpdateAbi()
+	})
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (u *ProjectUpsertBulk) SetSlotURI(v model.SlotUri) *ProjectUpsertBulk {
+	return u.Update(func(s *ProjectUpsert) {
+		s.SetSlotURI(v)
+	})
+}
+
+// UpdateSlotURI sets the "slot_uri" field to the value that was provided on create.
+func (u *ProjectUpsertBulk) UpdateSlotURI() *ProjectUpsertBulk {
+	return u.Update(func(s *ProjectUpsert) {
+		s.UpdateSlotURI()
 	})
 }
 

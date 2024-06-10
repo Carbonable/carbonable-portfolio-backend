@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 // Project is the model entity for the Project schema.
@@ -27,7 +27,9 @@ type Project struct {
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Abi holds the value of the "abi" field.
-	Abi schema.ProjectAbi `json:"abi,omitempty"`
+	Abi model.ProjectAbi `json:"abi,omitempty"`
+	// SlotURI holds the value of the "slot_uri" field.
+	SlotURI model.SlotUri `json:"slot_uri,omitempty"`
 	// Image holds the value of the "image" field.
 	Image string `json:"image,omitempty"`
 	// YielderAddress holds the value of the "yielder_address" field.
@@ -67,7 +69,7 @@ func (*Project) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case project.FieldAbi:
+		case project.FieldAbi, project.FieldSlotURI:
 			values[i] = new([]byte)
 		case project.FieldID, project.FieldSlot:
 			values[i] = new(sql.NullInt64)
@@ -124,6 +126,14 @@ func (pr *Project) assignValues(columns []string, values []any) error {
 			} else if value != nil && len(*value) > 0 {
 				if err := json.Unmarshal(*value, &pr.Abi); err != nil {
 					return fmt.Errorf("unmarshal field abi: %w", err)
+				}
+			}
+		case project.FieldSlotURI:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field slot_uri", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &pr.SlotURI); err != nil {
+					return fmt.Errorf("unmarshal field slot_uri: %w", err)
 				}
 			}
 		case project.FieldImage:
@@ -199,6 +209,9 @@ func (pr *Project) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("abi=")
 	builder.WriteString(fmt.Sprintf("%v", pr.Abi))
+	builder.WriteString(", ")
+	builder.WriteString("slot_uri=")
+	builder.WriteString(fmt.Sprintf("%v", pr.SlotURI))
 	builder.WriteString(", ")
 	builder.WriteString("image=")
 	builder.WriteString(pr.Image)

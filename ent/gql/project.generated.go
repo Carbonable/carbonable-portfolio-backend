@@ -9,15 +9,15 @@ import (
 	"sync/atomic"
 
 	"github.com/99designs/gqlgen/graphql"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
 // region    ************************** generated!.gotpl **************************
 
 type ProjectAbiResolver interface {
-	Project(ctx context.Context, obj *schema.ProjectAbi) (string, error)
-	Minter(ctx context.Context, obj *schema.ProjectAbi) (string, error)
+	Project(ctx context.Context, obj *model.ProjectAbi) (string, error)
+	Minter(ctx context.Context, obj *model.ProjectAbi) (string, error)
 }
 
 // endregion ************************** generated!.gotpl **************************
@@ -32,7 +32,7 @@ type ProjectAbiResolver interface {
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _ProjectAbi_project(ctx context.Context, field graphql.CollectedField, obj *schema.ProjectAbi) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectAbi_project(ctx context.Context, field graphql.CollectedField, obj *model.ProjectAbi) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectAbi_project(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -76,7 +76,7 @@ func (ec *executionContext) fieldContext_ProjectAbi_project(_ context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _ProjectAbi_minter(ctx context.Context, field graphql.CollectedField, obj *schema.ProjectAbi) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectAbi_minter(ctx context.Context, field graphql.CollectedField, obj *model.ProjectAbi) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProjectAbi_minter(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -134,7 +134,7 @@ func (ec *executionContext) fieldContext_ProjectAbi_minter(_ context.Context, fi
 
 var projectAbiImplementors = []string{"ProjectAbi"}
 
-func (ec *executionContext) _ProjectAbi(ctx context.Context, sel ast.SelectionSet, obj *schema.ProjectAbi) graphql.Marshaler {
+func (ec *executionContext) _ProjectAbi(ctx context.Context, sel ast.SelectionSet, obj *model.ProjectAbi) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectAbiImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -242,11 +242,11 @@ func (ec *executionContext) _ProjectAbi(ctx context.Context, sel ast.SelectionSe
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v schema.ProjectAbi) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectAbi2githubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋinternalᚋmodelᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v model.ProjectAbi) graphql.Marshaler {
 	return ec._ProjectAbi(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNProjectAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋentᚋschemaᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v *schema.ProjectAbi) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectAbi2ᚖgithubᚗcomᚋcarbonableᚋcarbonableᚑportfolioᚑbackendᚋinternalᚋmodelᚐProjectAbi(ctx context.Context, sel ast.SelectionSet, v *model.ProjectAbi) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")

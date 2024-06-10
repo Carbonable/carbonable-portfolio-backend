@@ -13,7 +13,7 @@ import (
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/predicate"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/project"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 const (
@@ -711,7 +711,8 @@ type ProjectMutation struct {
 	addslot          *int
 	minter_address   *string
 	name             *string
-	abi              *schema.ProjectAbi
+	abi              *model.ProjectAbi
+	slot_uri         *model.SlotUri
 	image            *string
 	yielder_address  *string
 	offseter_address *string
@@ -987,12 +988,12 @@ func (m *ProjectMutation) ResetName() {
 }
 
 // SetAbi sets the "abi" field.
-func (m *ProjectMutation) SetAbi(sa schema.ProjectAbi) {
-	m.abi = &sa
+func (m *ProjectMutation) SetAbi(ma model.ProjectAbi) {
+	m.abi = &ma
 }
 
 // Abi returns the value of the "abi" field in the mutation.
-func (m *ProjectMutation) Abi() (r schema.ProjectAbi, exists bool) {
+func (m *ProjectMutation) Abi() (r model.ProjectAbi, exists bool) {
 	v := m.abi
 	if v == nil {
 		return
@@ -1003,7 +1004,7 @@ func (m *ProjectMutation) Abi() (r schema.ProjectAbi, exists bool) {
 // OldAbi returns the old "abi" field's value of the Project entity.
 // If the Project object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ProjectMutation) OldAbi(ctx context.Context) (v schema.ProjectAbi, err error) {
+func (m *ProjectMutation) OldAbi(ctx context.Context) (v model.ProjectAbi, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAbi is only allowed on UpdateOne operations")
 	}
@@ -1020,6 +1021,42 @@ func (m *ProjectMutation) OldAbi(ctx context.Context) (v schema.ProjectAbi, err 
 // ResetAbi resets all changes to the "abi" field.
 func (m *ProjectMutation) ResetAbi() {
 	m.abi = nil
+}
+
+// SetSlotURI sets the "slot_uri" field.
+func (m *ProjectMutation) SetSlotURI(mu model.SlotUri) {
+	m.slot_uri = &mu
+}
+
+// SlotURI returns the value of the "slot_uri" field in the mutation.
+func (m *ProjectMutation) SlotURI() (r model.SlotUri, exists bool) {
+	v := m.slot_uri
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSlotURI returns the old "slot_uri" field's value of the Project entity.
+// If the Project object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ProjectMutation) OldSlotURI(ctx context.Context) (v model.SlotUri, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSlotURI is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSlotURI requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSlotURI: %w", err)
+	}
+	return oldValue.SlotURI, nil
+}
+
+// ResetSlotURI resets all changes to the "slot_uri" field.
+func (m *ProjectMutation) ResetSlotURI() {
+	m.slot_uri = nil
 }
 
 // SetImage sets the "image" field.
@@ -1244,7 +1281,7 @@ func (m *ProjectMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ProjectMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 9)
 	if m.address != nil {
 		fields = append(fields, project.FieldAddress)
 	}
@@ -1259,6 +1296,9 @@ func (m *ProjectMutation) Fields() []string {
 	}
 	if m.abi != nil {
 		fields = append(fields, project.FieldAbi)
+	}
+	if m.slot_uri != nil {
+		fields = append(fields, project.FieldSlotURI)
 	}
 	if m.image != nil {
 		fields = append(fields, project.FieldImage)
@@ -1287,6 +1327,8 @@ func (m *ProjectMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case project.FieldAbi:
 		return m.Abi()
+	case project.FieldSlotURI:
+		return m.SlotURI()
 	case project.FieldImage:
 		return m.Image()
 	case project.FieldYielderAddress:
@@ -1312,6 +1354,8 @@ func (m *ProjectMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldName(ctx)
 	case project.FieldAbi:
 		return m.OldAbi(ctx)
+	case project.FieldSlotURI:
+		return m.OldSlotURI(ctx)
 	case project.FieldImage:
 		return m.OldImage(ctx)
 	case project.FieldYielderAddress:
@@ -1356,11 +1400,18 @@ func (m *ProjectMutation) SetField(name string, value ent.Value) error {
 		m.SetName(v)
 		return nil
 	case project.FieldAbi:
-		v, ok := value.(schema.ProjectAbi)
+		v, ok := value.(model.ProjectAbi)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAbi(v)
+		return nil
+	case project.FieldSlotURI:
+		v, ok := value.(model.SlotUri)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSlotURI(v)
 		return nil
 	case project.FieldImage:
 		v, ok := value.(string)
@@ -1476,6 +1527,9 @@ func (m *ProjectMutation) ResetField(name string) error {
 		return nil
 	case project.FieldAbi:
 		m.ResetAbi()
+		return nil
+	case project.FieldSlotURI:
+		m.ResetSlotURI()
 		return nil
 	case project.FieldImage:
 		m.ResetImage()

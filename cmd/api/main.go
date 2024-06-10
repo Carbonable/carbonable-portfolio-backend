@@ -8,9 +8,12 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/NethermindEth/starknet.go/rpc"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/resolver"
 	apputils "github.com/carbonable/carbonable-portfolio-backend/internal/utils"
+
+	ethrpc "github.com/ethereum/go-ethereum/rpc"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -19,6 +22,12 @@ func main() {
 	db, err := apputils.OpenDB(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		slog.Error("failed opening connection to database", err)
+		return
+	}
+
+	rpcClient, err := rpc.NewProvider(os.Getenv("RPC_URL"), ethrpc.WithHeader("x-apikey", os.Getenv("RPC_API_KEY")))
+	if err != nil {
+		slog.Error("failed creating rpc provider", err)
 		return
 	}
 
@@ -34,7 +43,7 @@ func main() {
 
 	graphqlHandler := handler.NewDefaultServer(
 		gql.NewExecutableSchema(
-			gql.Config{Resolvers: &resolver.Resolver{Client: db}},
+			gql.Config{Resolvers: &resolver.Resolver{Client: db, Rpc: rpcClient}},
 		),
 	)
 	graphqlHandler.Use(extension.Introspection{})

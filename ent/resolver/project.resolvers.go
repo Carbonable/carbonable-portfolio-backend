@@ -8,11 +8,11 @@ import (
 	"context"
 
 	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
-	"github.com/carbonable/carbonable-portfolio-backend/ent/schema"
+	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
 )
 
 // Project is the resolver for the project field.
-func (r *projectAbiResolver) Project(ctx context.Context, obj *schema.ProjectAbi) (string, error) {
+func (r *projectAbiResolver) Project(ctx context.Context, obj *model.ProjectAbi) (string, error) {
 	b, err := obj.Project.MarshalJSON()
 	if err != nil {
 		return "", err
@@ -22,7 +22,7 @@ func (r *projectAbiResolver) Project(ctx context.Context, obj *schema.ProjectAbi
 }
 
 // Minter is the resolver for the minter field.
-func (r *projectAbiResolver) Minter(ctx context.Context, obj *schema.ProjectAbi) (string, error) {
+func (r *projectAbiResolver) Minter(ctx context.Context, obj *model.ProjectAbi) (string, error) {
 	b, err := obj.Minter.MarshalJSON()
 	if err != nil {
 		return "", err

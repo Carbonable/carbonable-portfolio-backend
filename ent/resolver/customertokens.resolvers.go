@@ -9,6 +9,7 @@ import (
 
 	"github.com/NethermindEth/juno/core/felt"
 	"github.com/NethermindEth/starknet.go/utils"
+	"github.com/carbonable-labs/indexer.sdk/sdk"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/customertokens"
 	"github.com/carbonable/carbonable-portfolio-backend/ent/gql"
 	"github.com/carbonable/carbonable-portfolio-backend/internal/model"
@@ -30,6 +31,7 @@ func (r *queryResolver) CustomerTokens(ctx context.Context, address string) (*gq
 	for _, p := range projects {
 		tokens := []*gql.Token{}
 		var valFelt felt.Felt
+		value := felt.Zero
 		for _, ct := range customerTokens {
 			if p.Address == ct.ProjectAddress && p.Slot == ct.Slot {
 				err := valFelt.UnmarshalJSON([]byte(ct.Value))
@@ -46,7 +48,26 @@ func (r *queryResolver) CustomerTokens(ctx context.Context, address string) (*gq
 				})
 
 				total.Add(dv)
+				value.Add(&value, &valFelt)
 			}
+		}
+		contract := sdk.Contract{
+			Address: p.Address,
+		}
+		var slot felt.Felt
+		slot.SetUint64(uint64(p.Slot))
+		totalValue, err := model.ProjectTotalValue(ctx, r.Rpc, contract, &slot)
+		if err != nil {
+			return nil, err
+		}
+		var pa, pcu felt.Felt
+		err = pa.UnmarshalJSON([]byte(p.SlotURI.AttributeItem("Project Area")))
+		if err != nil {
+			return nil, err
+		}
+		err = pcu.UnmarshalJSON([]byte(p.SlotURI.AttributeItem("Project Carbon Units")))
+		if err != nil {
+			return nil, err
 		}
 
 		ctd := &gql.CustomerTokensDto{
@@ -59,8 +80,8 @@ func (r *queryResolver) CustomerTokens(ctx context.Context, address string) (*gq
 			Slot:            p.Slot,
 			Abi:             &p.Abi,
 			Image:           p.Image,
-			AssetArea:       "",
-			AssetCarbonUnit: "",
+			AssetArea:       model.FormatArea(model.AssetArea(value, pa, totalValue)),
+			AssetCarbonUnit: model.FormatCapacity(model.AssetCarbonUnit(value, pcu, totalValue)),
 		}
 		ctds = append(ctds, ctd)
 	}

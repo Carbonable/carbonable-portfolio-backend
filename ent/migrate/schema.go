@@ -38,6 +38,7 @@ var (
 		{Name: "minter_address", Type: field.TypeString},
 		{Name: "name", Type: field.TypeString},
 		{Name: "abi", Type: field.TypeJSON},
+		{Name: "slot_uri", Type: field.TypeJSON},
 		{Name: "image", Type: field.TypeString, Size: 2147483647},
 		{Name: "yielder_address", Type: field.TypeString, Nullable: true},
 		{Name: "offseter_address", Type: field.TypeString, Nullable: true},
